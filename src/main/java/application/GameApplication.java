@@ -28,8 +28,6 @@ public class GameApplication extends Application {
             scenes = new HashMap<String, Pane>();
             manager = new PlaylistManager(settings);
             player = new MP3(this);
-
-
             Pane root = scenes.get("PlaylistOverView");
 
             Scene scene = new Scene(root,800,800);
