@@ -22,17 +22,17 @@ public class Playlist implements Cloneable{
 	int next;
 	File f;
 
-	public Playlist(File f) throws IOException {
+	public Playlist(File f) throws IOException, InvalidDataException, UnsupportedTagException {
 		playlist = new ArrayList<>();
 		this.f = f;
 		loadPlaylist();
 	}
 
-	private void addTrack(String fileName) throws InvalidDataException, UnsupportedTagException, IOException {
+	private void addTrack(String fileName) throws IOException {
 		try{
 		Song track = new Song(fileName);
 		playlist.add(track);
-		}catch (IOException ex){
+		}catch (IOException | UnsupportedTagException | InvalidDataException ex){
 			System.out.println("Error reading Song");
 		}
 	}
@@ -41,15 +41,11 @@ public class Playlist implements Cloneable{
 	 * Laed die Playlist indem ein BufferedReader ueber ein File iteriert und dann die Methode addTrack aufruft
 	 */
 
-	public void loadPlaylist() throws IOException {
+	public void loadPlaylist() throws IOException, InvalidDataException, UnsupportedTagException {
 		try (BufferedReader br = new BufferedReader(new FileReader(f))){
 			String line;
 			while((line = br.readLine()) != null){
-				try {
-					addTrack(line);
-				} catch (InvalidDataException | UnsupportedTagException e) {
-					throw new RuntimeException("Error reading Playlistfile");
-				}
+				addTrack(line);
 			}
 		}catch (IOException ex){
 			throw new IOException("Error reading Playlistfile");
@@ -65,7 +61,7 @@ public class Playlist implements Cloneable{
 	 * iteriert ueber Playlist Liste um einen uebergebenen Song zu suchen
 	 */
 
-    public int searchSong(Song aktSong) throws SongNotFoundException, IOException{
+    public int searchSong(Song aktSong) throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
 		int i = 0;
 		for (Song akt : this.playlist) {
 			if (akt == aktSong) {
@@ -76,21 +72,21 @@ public class Playlist implements Cloneable{
 		}throw new SongNotFoundException(this);
 	}
 
-	public Song getNextSong(Song aktSong) throws SongNotFoundException, IOException {
+	public Song getNextSong(Song aktSong) throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
 		if (searchSong(aktSong) == playlist.size() - 1){
 		    return playlist.get(0);
 		}
 		return playlist.get(searchSong(aktSong) + 1);
 	}
 
-	public Song getPrevSong(Song aktSong) throws SongNotFoundException, IOException {
+	public Song getPrevSong(Song aktSong) throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
 		if (searchSong(aktSong) == 0){
 		    return playlist.get(playlist.size() - 1);
 		}
 		return playlist.get(searchSong(aktSong) - 1);
 	}
 
-	public Song getAktSong(Song aktSong) throws SongNotFoundException, IOException {
+	public Song getAktSong(Song aktSong) throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
 		return playlist.get(searchSong(aktSong));
 	}
 

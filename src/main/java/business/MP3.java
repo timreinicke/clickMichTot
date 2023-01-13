@@ -1,7 +1,12 @@
 package business;
 
 import application.GameApplication;
-import application.MP3PlayerApp;
+import application.GameApplication;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
+import ddf.minim.AudioInput;
+import ddf.minim.Minim;
+import ddf.minim.analysis.BeatDetect;
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import exceptions.SongNotFoundException;
@@ -32,6 +37,13 @@ public class MP3 extends Thread {
 
     public MP3(GameApplication application) throws IOException {
         minim = new SimpleMinim();
+        /*audioPlayer = minim.loadMP3File("src/main/resources/application/music/tracks/on_sale.mp3");
+        audioPlayer.play();
+
+        AudioInput auInput = minim.getLineIn(Minim.STEREO, 1024);
+        BeatDetect beatDetect = new BeatDetect(1024, 44100.0f);
+        beatDetect.setSensitivity(1000);
+        */
         currTime = new SimpleIntegerProperty(0);
         manager = application.getManager();
         songName = new SimpleStringProperty();
@@ -44,7 +56,7 @@ public class MP3 extends Thread {
      * Falls playSong aber schon Musikspielt, wird er pausiert, da sonst die Lieder in verschiedenen Threads uebereinander spielen
      */
 
-    public void playSong(Song song) throws SongNotFoundException, IOException {
+    public void playSong(Song song) throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
         isPaused = false;
         aktSong = manager.getAktPlaylist(shuffle).getAktSong(song);
         prevSong = manager.getAktPlaylist(shuffle).getPrevSong(song);
@@ -80,6 +92,10 @@ public class MP3 extends Thread {
                         skip();
 
                     } catch (SongNotFoundException | IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvalidDataException e) {
+                        throw new RuntimeException(e);
+                    } catch (UnsupportedTagException e) {
                         throw new RuntimeException(e);
                     }
                 }
@@ -134,7 +150,7 @@ public class MP3 extends Thread {
      * Wenn repeat aus ist unterbricht er den alten Pfad, setzt den previous, aktuellen und next Song neu und startet einen neuen Thread mit play
      */
 
-    public void skip() throws SongNotFoundException, IOException {
+    public void skip() throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
         if(repeat) {
             audioPlayer.pause();
             timerThread.interrupt();
@@ -154,7 +170,7 @@ public class MP3 extends Thread {
      * selbe Logik wie skip, nur dass der previous Song der aktuelle wird
      */
 
-    public void skipBack() throws SongNotFoundException, IOException {
+    public void skipBack() throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
         if(repeat) {
             audioPlayer.pause();
             timerThread.interrupt();

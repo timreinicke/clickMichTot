@@ -33,6 +33,14 @@ Text {
 	-fx-padding: 10;
 }
 
+.gamescreen {
+	-fx-background-image: url("images/background.jpeg");
+	-fx-background-position: center;
+	-fx-background-size: cover;
+}
+
+
+
 .icon-button.active {
 	-fx-background-color: #29524A;
 }

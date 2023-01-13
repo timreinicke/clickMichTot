@@ -7,6 +7,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import presentation.scenes.gameScreen.GameScreenController;
+import presentation.scenes.gameScreen.GameScreenView;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,9 +30,12 @@ public class GameApplication extends Application {
             scenes = new HashMap<String, Pane>();
             manager = new PlaylistManager(settings);
             player = new MP3(this);
-            Pane root = scenes.get("PlaylistOverView");
 
-            Scene scene = new Scene(root,800,800);
+            GameScreenController game = new GameScreenController();
+            scenes.put("GameScreen", game.getView());
+            Pane root = scenes.get("GameScreen");
+
+            Scene scene = new Scene(root,1800,800);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             mainScene = scene;
             primaryStage.setScene(mainScene);
@@ -48,5 +53,9 @@ public class GameApplication extends Application {
                 mainScene.setRoot(nextView);
             }
         }
+    }
+
+    public PlaylistManager getManager() {
+        return manager;
     }
 }

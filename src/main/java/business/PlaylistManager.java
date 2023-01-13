@@ -1,5 +1,7 @@
 package business;
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import exceptions.PlaylistNotFoundException;
 
 import java.io.File;
@@ -16,7 +18,7 @@ public class PlaylistManager {
 	Playlist shufflePlaylist;
 	Einstellungen settings;
 
-	public PlaylistManager (Einstellungen settings) throws IOException {
+	public PlaylistManager (Einstellungen settings) throws IOException, InvalidDataException, UnsupportedTagException {
 		this.settings = settings;
 		getPlaylists();
 	}
@@ -25,7 +27,7 @@ public class PlaylistManager {
 	 * laed alle Playlisten als File aus dem gegebenen Verzeichnis aus
 	 */
 
-	public void getPlaylists() throws IOException {
+	public void getPlaylists() throws IOException, InvalidDataException, UnsupportedTagException {
 		playlistManager = new HashMap<String, Playlist>();
 		String playlistDir = settings.getPlaylistsDir();
 		File folder = new File(playlistDir);
@@ -58,7 +60,7 @@ public class PlaylistManager {
 	 * setzt aktuelle Playlist
 	 */
 
-	public void setPlaylist(String name) throws PlaylistNotFoundException, IOException {
+	public void setPlaylist(String name) throws PlaylistNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
 		this.aktPlaylist = getPlaylist(name);
 		shufflePlaylist = aktPlaylist.clone();
 		setShufflePlaylist();
@@ -75,7 +77,7 @@ public class PlaylistManager {
 	 * @exception Playlist nicht gefunden
 	 */
 
-	public Playlist getPlaylist(String name) throws PlaylistNotFoundException, IOException {
+	public Playlist getPlaylist(String name) throws PlaylistNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
 		for (String key : playlistManager.keySet()) {
 			if (key.equals(name)){
 				return playlistManager.get(name);
@@ -89,7 +91,7 @@ public class PlaylistManager {
 	 * @return Name von Playlist
 	 */
 
-	public String getPlaylistName (Playlist playlist) throws PlaylistNotFoundException, IOException {
+	public String getPlaylistName (Playlist playlist) throws PlaylistNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
 		for(String key : playlistManager.keySet()) {
 			if(playlistManager.get(key) == playlist) {
 				return key;
