@@ -39,7 +39,10 @@ Text {
 	-fx-background-size: cover;
 }
 
+.button-click {
+-fx-border-radius: 50% 50%;
 
+}
 
 .icon-button.active {
 	-fx-background-color: #29524A;
