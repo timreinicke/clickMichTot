@@ -18,27 +18,34 @@ public class GameScreenController extends Thread {
 
     private GameScreenView view;
     private ImageView hero_view;
-    private Canvas gameCanvas;
+
+    public GameScreenController() throws FileNotFoundException {
+        this.view = new GameScreenView();
+        this.hero_view = view.hero_view;
+
+        buttonSpawn().start();
+        intialize();
+    }
 
     public Thread buttonSpawn() {
         return new Thread(() -> {
             Map<String, Button> buttonManager = new HashMap<>();
 
             for (int i = 0; i < 10; i++) {
+
+
                 for (int j = 1; j < 5; j++) {
+
                     String id = i + "." + j;
                     Button tap = new Button(String.valueOf(j));
                     buttonManager.put(id, tap);
 
-                    /*
-                    int x = (int)(Math.random() * view.getWidth());
-                    int y = (int)(Math.random() * view.getHeight());
-                    tap.setLayoutX(x);
-                    tap.setLayoutX(y);*/
+                    int x = (int) (Math.random() * view.getWidth() - view.getWidth() / 2);
+                    int y = (int) (Math.random() * view.getHeight() - view.getHeight() / 2);
 
-                    int x = (int) (Math.random() * view.getWidth() - view.getWidth()/2);
-                    int y = (int) (Math.random() * view.getHeight() - view.getHeight()/2);
-                    double z = view.getWidth()/2 - view.boss_view.getFitWidth();
+
+
+                    double z = view.getWidth() / 2 - view.boss_view.getFitWidth();
 
                     tap.setTranslateX(x);
                     tap.setTranslateY(y);
@@ -69,10 +76,11 @@ public class GameScreenController extends Thread {
 
                     tap.setId(i + "." + j);
                     tap.setOnAction(e -> {
-                        move(hero_view);
-                        view.getChildren().remove(tap);
-                        buttonManager.remove(id);
-
+                        Platform.runLater(() -> {
+                            move(hero_view);
+                            view.getChildren().remove(tap);
+                            buttonManager.remove(id);
+                        });
                     });
 
                 }
@@ -81,14 +89,6 @@ public class GameScreenController extends Thread {
         });
     }
 
-    public GameScreenController() throws FileNotFoundException {
-        this.view = new GameScreenView();
-        this.hero_view = view.hero_view;
-        this.gameCanvas = view.gameCanvas;
-
-        buttonSpawn().start();
-        intialize();
-    }
 
     public void move(ImageView image) {
         TranslateTransition translate = new TranslateTransition();

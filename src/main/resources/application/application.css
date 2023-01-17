@@ -40,14 +40,16 @@ Text {
 }
 
 .button-click {
-	-fx-border-radius: 50px;
-	-fx-min-width: 50px;
-	-fx-min-height: 50px;
-	-fx-background-size: 48px 48px;
+	-fx-border-radius: 75px;
+	-fx-min-width: 75px;
+	-fx-min-height: 75px;
+	-fx-background-size: 73px 73px;
 	-fx-background-position: center;
+	-fx-font-size: 50px;
 	-fx-text-fill: white;
 	-fx-background-color: black;
-	-fx-background-radius: 48px;
+	-fx-background-radius: 73px;
+	-fx-border-color: white;
 
 }
 
