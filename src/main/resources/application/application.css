@@ -40,7 +40,14 @@ Text {
 }
 
 .button-click {
--fx-border-radius: 50% 50%;
+	-fx-border-radius: 50px;
+	-fx-min-width: 50px;
+	-fx-min-height: 50px;
+	-fx-background-size: 48px 48px;
+	-fx-background-position: center;
+	-fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-background-radius: 48px;
 
 }
 
