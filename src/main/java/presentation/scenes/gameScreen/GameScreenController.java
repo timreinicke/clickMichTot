@@ -2,10 +2,8 @@ package presentation.scenes.gameScreen;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
@@ -16,8 +14,8 @@ import java.util.TimerTask;
 
 public class GameScreenController extends Thread {
 
-    private GameScreenView view;
-    private ImageView hero_view;
+    private final GameScreenView view;
+    private final ImageView hero_view;
 
     public GameScreenController() throws FileNotFoundException {
         this.view = new GameScreenView();
