@@ -1,12 +1,19 @@
 package presentation.scenes.gameScreen;
 
+import ddf.minim.AudioInput;
+import ddf.minim.Minim;
+import ddf.minim.analysis.BeatDetect;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -16,20 +23,41 @@ public class GameScreenController extends Thread {
 
     private final GameScreenView view;
     private final ImageView hero_view;
+    StackPane buttonView;
 
     public GameScreenController() throws FileNotFoundException {
         this.view = new GameScreenView();
         this.hero_view = view.hero_view;
 
+        buttonView = this.view.buttonView;
+
         buttonSpawn().start();
         intialize();
     }
 
+    public InputStream createInput(String filename) {
+        return new InputStream() {
+            @Override
+            public int read() throws IOException {
+                return 0;
+            }
+        };
+    }
+
     public Thread buttonSpawn() {
         return new Thread(() -> {
-            Map<String, Button> buttonManager = new HashMap<>();
 
-            for (int i = 0; i < 10; i++) {
+            Map<String, Button> buttonManager = new HashMap<>();
+            Minim minim = new Minim(createInput("src/main/resources/application/music/tracks/blook.mp3"));
+            AudioInput input = minim.getLineIn(Minim.STEREO, 1024);
+
+            BeatDetect beat = new BeatDetect(1024, 44100.0f);
+            beat.setSensitivity(1000);
+            beat.detect(input.mix);
+            if (beat.isHat()) {
+                System.out.println("Hat");
+            }
+            for (int i = 0; i < 1; i++) {
 
 
                 for (int j = 1; j < 5; j++) {
@@ -42,7 +70,6 @@ public class GameScreenController extends Thread {
                     int y = (int) (Math.random() * view.getHeight() - view.getHeight() / 2);
 
 
-
                     double z = view.getWidth() / 2 - view.boss_view.getFitWidth();
 
                     tap.setTranslateX(x);
@@ -51,7 +78,8 @@ public class GameScreenController extends Thread {
 
                     Platform.runLater(() -> {
                         tap.getStyleClass().add("button-click");
-                        view.getChildren().add(tap);
+                        // view.getChildren().add(tap);
+                        buttonView.getChildren().add(tap);
                     });
 
                     try {
@@ -65,10 +93,14 @@ public class GameScreenController extends Thread {
                         @Override
                         public void run() {
                             Platform.runLater(() -> {
-                                if (view.getChildren().contains(buttonManager.get(id))) {
-                                    view.getChildren().remove(buttonManager.get(id));
+                                if (buttonView.getChildren().contains(buttonManager.get(id))) {
+                                   // buttonView.getChildren().remove(buttonManager.get(id));
+                                    buttonManager.remove(id);
+
                                 }
+                                tap.setDisable(true);
                             });
+
                         }
                     }, 3000);
 
@@ -76,14 +108,24 @@ public class GameScreenController extends Thread {
                     tap.setOnAction(e -> {
                         Platform.runLater(() -> {
                             move(hero_view);
-                            view.getChildren().remove(tap);
-                            buttonManager.remove(id);
+                           /* view.getChildren().remove(tap);
+                            buttonManager.remove(id);*/
+                            tap.setDisable(true);
                         });
                     });
 
                 }
-
             }
+
+            Timer removeButtons = new Timer();
+            removeButtons.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        buttonView.getChildren().clear();
+                    });
+                }
+            }, 12000);
         });
     }
 

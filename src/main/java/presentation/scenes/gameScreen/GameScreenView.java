@@ -6,10 +6,12 @@ import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Stack;
 
 public class GameScreenView extends StackPane {
     public ImageView hero_view;
     public  ImageView boss_view;
+    public StackPane buttonView;
     public GameScreenView() throws FileNotFoundException {
 
         hero_view = new ImageView();
@@ -18,7 +20,9 @@ public class GameScreenView extends StackPane {
         boss_view = new ImageView();
         boss_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/boss1.png")));
 
+        buttonView = new StackPane();
+
         this.getStyleClass().add("gamescreen");
-        this.getChildren().addAll(hero_view, boss_view);
+        this.getChildren().addAll(hero_view, boss_view, buttonView);
     }
 }

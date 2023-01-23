@@ -27,13 +27,13 @@ public class MP3 extends Thread {
     private final SimpleStringProperty songName;
     boolean shuffle = false;
     boolean repeat = false;
-    PlaylistManager manager;
-    Song prevSong;
-    Song nextSong;
-    Song aktSong;
-    boolean isPaused;
-    Thread timerThread;
-    Thread playThread;
+    private final PlaylistManager manager;
+    private Song prevSong;
+    private Song nextSong;
+    private Song aktSong;
+    private boolean isPaused;
+    private Thread timerThread;
+    private Thread playThread;
 
     public MP3(GameApplication application) throws IOException {
         minim = new SimpleMinim();
@@ -91,11 +91,7 @@ public class MP3 extends Thread {
                     try {
                         skip();
 
-                    } catch (SongNotFoundException | IOException e) {
-                        throw new RuntimeException(e);
-                    } catch (InvalidDataException e) {
-                        throw new RuntimeException(e);
-                    } catch (UnsupportedTagException e) {
+                    } catch (SongNotFoundException | IOException | InvalidDataException | UnsupportedTagException e) {
                         throw new RuntimeException(e);
                     }
                 }
