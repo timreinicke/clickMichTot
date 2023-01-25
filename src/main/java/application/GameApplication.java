@@ -8,9 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import presentation.scenes.gameScreen.GameScreenController;
-import presentation.scenes.gameScreen.GameScreenView;
+import presentation.scenes.menuScreen.MenuScreenController;
 
-import java.io.IOException;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +32,10 @@ public class GameApplication extends Application {
             player = new MP3(this);
 
             GameScreenController game = new GameScreenController();
+            MenuScreenController menu = new MenuScreenController(this, manager);
             scenes.put("GameScreen", game.getView());
-            Pane root = scenes.get("GameScreen");
+            scenes.put("MenuScreen",menu.getView());
+            Pane root = scenes.get("MenuScreen");
 
             Scene scene = new Scene(root,1800,800);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

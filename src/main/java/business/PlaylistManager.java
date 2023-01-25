@@ -6,6 +6,7 @@ import exceptions.PlaylistNotFoundException;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Array;
 import java.util.*;
 
 /*
@@ -13,7 +14,7 @@ import java.util.*;
  */
 
 public class PlaylistManager {
-	public Map<String, Playlist> playlistManager;
+	public ArrayList<Playlist> playlistManager;
 	Playlist aktPlaylist;
 	Playlist shufflePlaylist;
 	Einstellungen settings;
@@ -28,16 +29,16 @@ public class PlaylistManager {
 	 */
 
 	public void getPlaylists() throws IOException, InvalidDataException, UnsupportedTagException {
-		playlistManager = new HashMap<String, Playlist>();
+		playlistManager = new ArrayList<Playlist>();
 		String playlistDir = settings.getPlaylistsDir();
 		File folder = new File(playlistDir);
 
 		for(File fileEntry: Objects.requireNonNull(folder.listFiles())) {
-			playlistManager.put(fileEntry.getName(), new Playlist(fileEntry));
+			playlistManager.add(new Playlist(fileEntry));
 		}
 	}
 
-	public Map<String, Playlist> getPlaylistManager() {
+	public ArrayList<Playlist> getPlaylistManager() {
 		return playlistManager;
 	}
 
@@ -47,59 +48,19 @@ public class PlaylistManager {
 	 * @return shufflePlaylist
 	 */
 
-	public Playlist getAktPlaylist(boolean shuffle) {
-		if(!shuffle) {
+	public Playlist getAktPlaylist() {
 			return aktPlaylist;
-		} else {
-			return shufflePlaylist;
-		}
-
 	}
 
 	/*
 	 * setzt aktuelle Playlist
 	 */
 
-	public void setPlaylist(String name) throws PlaylistNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
-		this.aktPlaylist = getPlaylist(name);
-		shufflePlaylist = aktPlaylist.clone();
-		setShufflePlaylist();
-	}
-
-	public void setShufflePlaylist() {
-		Collections.shuffle((List<?>) shufflePlaylist.getSongs());
-	}
-
-	/*
-	 * liest Playlist mit mitgegebenem Name
-	 * @param String nameVonPlaylist
-	 * @return Playlist gefundenePlaylist
-	 * @exception Playlist nicht gefunden
-	 */
-
-	public Playlist getPlaylist(String name) throws PlaylistNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
-		for (String key : playlistManager.keySet()) {
-			if (key.equals(name)){
-				return playlistManager.get(name);
-			}
-		}
-		throw new PlaylistNotFoundException(this);
-	}
-
-	/*
-	 * @param Playliste wessen Name man herausfinden moechte
-	 * @return Name von Playlist
-	 */
-
-	public String getPlaylistName (Playlist playlist) throws PlaylistNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
-		for(String key : playlistManager.keySet()) {
-			if(playlistManager.get(key) == playlist) {
-				return key;
-			}
-		}
-
-		throw new PlaylistNotFoundException(this);
+	public void setPlaylist(Playlist p) throws PlaylistNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
+		this.aktPlaylist = p;
 	}
 }
+
+
 
 

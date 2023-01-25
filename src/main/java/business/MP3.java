@@ -56,23 +56,6 @@ public class MP3 extends Thread {
      * Falls playSong aber schon Musikspielt, wird er pausiert, da sonst die Lieder in verschiedenen Threads uebereinander spielen
      */
 
-    public void playSong(Song song) throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
-        isPaused = false;
-        aktSong = manager.getAktPlaylist(shuffle).getAktSong(song);
-        prevSong = manager.getAktPlaylist(shuffle).getPrevSong(song);
-        nextSong = manager.getAktPlaylist(shuffle).getNextSong(song);
-
-        if (audioPlayer == null) {
-            audioPlayer = minim.loadMP3File(aktSong.getFilename());
-        } else if (audioPlayer.isPlaying()) {
-            audioPlayer.pause();
-            timerThread.interrupt();
-        }
-
-        timerThread = createTimerThread();
-
-        play();
-    }
 
     /*
      * erstellt einen neuen Thread um den Timer eines Liedes zu merken
@@ -88,12 +71,6 @@ public class MP3 extends Thread {
                     Thread.currentThread().interrupt();
                 }
                 if(aktSong.getDuration() == currTime.getValue() / 1000){
-                    try {
-                        skip();
-
-                    } catch (SongNotFoundException | IOException | InvalidDataException | UnsupportedTagException e) {
-                        throw new RuntimeException(e);
-                    }
                 }
             }
         });
@@ -139,58 +116,6 @@ public class MP3 extends Thread {
 
     public void volume(float value) {
         audioPlayer.setGain(value);
-    }
-
-    /*
-     * Wenn repeat an ist, stoppt er den alten Thread und spielt den aktuellen Song einfach erneut ab
-     * Wenn repeat aus ist unterbricht er den alten Pfad, setzt den previous, aktuellen und next Song neu und startet einen neuen Thread mit play
-     */
-
-    public void skip() throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
-        if(repeat) {
-            audioPlayer.pause();
-            timerThread.interrupt();
-            play();
-            return;
-        }
-        audioPlayer.pause();
-        timerThread.interrupt();
-        prevSong = aktSong;
-        aktSong = nextSong;
-
-        nextSong = manager.getAktPlaylist(shuffle).getNextSong(aktSong);
-        play();
-    }
-
-    /*
-     * selbe Logik wie skip, nur dass der previous Song der aktuelle wird
-     */
-
-    public void skipBack() throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
-        if(repeat) {
-            audioPlayer.pause();
-            timerThread.interrupt();
-            play();
-            return;
-        }
-
-        audioPlayer.pause();
-        timerThread.interrupt();
-
-        nextSong = aktSong;
-        aktSong = prevSong;
-
-        prevSong = manager.getAktPlaylist(shuffle).getPrevSong(aktSong);
-        play();
-    }
-
-    public void shuffle() {
-        shuffle = !shuffle;
-
-    }
-
-    public void repeat() {
-        repeat = !repeat;
     }
 
     public SimpleIntegerProperty currTimeProperty() {

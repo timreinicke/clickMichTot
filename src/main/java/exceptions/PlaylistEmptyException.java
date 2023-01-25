@@ -15,7 +15,7 @@ public class PlaylistEmptyException extends Exception {
     PlaylistManager manager;
 
     public PlaylistEmptyException (PlaylistManager manager, Playlist playlist) throws IOException, PlaylistNotFoundException, InvalidDataException, UnsupportedTagException {
-        super("Playlist: " + manager.getPlaylistName(playlist) + "ist leer.");
+        super("Playlist: " + manager.getAktPlaylist().getPlaylistName() + "ist leer.");
         this.manager = manager;
 
     }

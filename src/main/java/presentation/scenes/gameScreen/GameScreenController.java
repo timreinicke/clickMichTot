@@ -5,7 +5,6 @@ import ddf.minim.Minim;
 import ddf.minim.analysis.BeatDetect;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
