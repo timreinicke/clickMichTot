@@ -1,23 +1,22 @@
-package presentation.scenes.menuScreen;
+package presentation.scenes.playlistMenu;
 
 import application.GameApplication;
-import business.Playlist;
 import business.PlaylistManager;
-import javafx.scene.layout.Pane;
-import presentation.uicomponents.menu.MenuView;
 import presentation.uicomponents.playlistShow.PlaylistShowController;
 
-public class MenuScreenController {
-    private MenuScreenView view;
+public class playlistMenuController {
+    private playlistMenuView view;
     GameApplication application;
     PlaylistManager manager;
     PlaylistShowController playlistView;
-    public MenuScreenController(GameApplication application, PlaylistManager manager){
+    public playlistMenuController(GameApplication application, PlaylistManager manager){
         this.manager = manager;
         this.application = application;
-        view = new MenuScreenView();
+        this.view = new playlistMenuView();
         playlistView = new PlaylistShowController(manager, application);
+
+        view.getChildren().add(playlistView.getPlaylistWindow());
     }
 
-    public MenuScreenView getView(){return view;}
+    public playlistMenuView getView(){return view;}
 }

@@ -24,6 +24,11 @@ public class Playlist implements Cloneable {
 	File f;
 	String playlistName;
 
+	@Override
+	public String toString() {
+		return this.playlistName;
+	}
+
 	public Playlist(File f) throws IOException, InvalidDataException, UnsupportedTagException {
 		playlist = new ArrayList<>();
 		this.f = f;
@@ -32,9 +37,10 @@ public class Playlist implements Cloneable {
 
 	private void addTrack(String fileName) throws IOException {
 		try {
+			String nameOfFile = this.f.getName();
 			Song track = new Song(fileName);
 			playlist.add(track);
-			playlistName = this.f.getName();
+			playlistName = nameOfFile.substring(0, nameOfFile.lastIndexOf('.'));
 		} catch (IOException | UnsupportedTagException | InvalidDataException ex) {
 			System.out.println("Error reading Song");
 		}

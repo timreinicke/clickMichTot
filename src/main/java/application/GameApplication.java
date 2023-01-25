@@ -7,10 +7,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import presentation.scenes.gameScreen.GameScreenController;
-import presentation.scenes.menuScreen.MenuScreenController;
+import presentation.scenes.playlistMenu.playlistMenuController;
+import presentation.scenes.songMenu.songMenuController;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,11 +30,13 @@ public class GameApplication extends Application {
             manager = new PlaylistManager(settings);
             player = new MP3(this);
 
-            GameScreenController game = new GameScreenController();
-            MenuScreenController menu = new MenuScreenController(this, manager);
-            scenes.put("GameScreen", game.getView());
-            scenes.put("MenuScreen",menu.getView());
-            Pane root = scenes.get("MenuScreen");
+            //GameScreenController game = new GameScreenController();
+            playlistMenuController playlistMenu = new playlistMenuController(this, manager);
+            songMenuController songlistMenu = new songMenuController(this, manager);
+            //scenes.put("GameScreen", game.getView());
+            scenes.put("PlaylistScreen", playlistMenu.getView());
+            scenes.put("SonglistScreen", songlistMenu.getView());
+            Pane root = scenes.get("PlaylistScreen");
 
             Scene scene = new Scene(root,1800,800);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
