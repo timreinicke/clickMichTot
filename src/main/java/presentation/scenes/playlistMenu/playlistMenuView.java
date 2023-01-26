@@ -1,5 +1,6 @@
 package presentation.scenes.playlistMenu;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
 public class playlistMenuView extends HBox {

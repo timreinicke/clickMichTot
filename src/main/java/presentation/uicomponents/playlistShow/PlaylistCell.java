@@ -32,7 +32,8 @@ public class PlaylistCell extends ListCell<Playlist> {
 
         if(p != null){
             this.playlistLabel.setText(p.getPlaylistName());
-            this.view.setPrefWidth(15);
+            this.view.setPrefWidth(30);
+            this.view.setPrefHeight(40);
             this.setGraphic(view);
         }else {
             setGraphic(null);

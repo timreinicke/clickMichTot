@@ -70,16 +70,21 @@ public class Playlist implements Cloneable {
 	 * iteriert ueber Playlist Liste um einen uebergebenen Song zu suchen
 	 */
 
-	public int searchSong(Song aktSong) throws SongNotFoundException, IOException, InvalidDataException, UnsupportedTagException {
-		int i = 0;
+	public boolean searchSong(Song aktSong){
 		for (Song akt : this.playlist) {
-			if (akt == aktSong) {
-
-				return i;
+			if (akt.isEqual(aktSong)) {
+				return true;
 			}
+		}
+		return false;
+	}
+
+	public int sizeOf(){
+		int i = 0;
+		for(Song s : playlist){
 			i++;
 		}
-		throw new SongNotFoundException(this);
+		return i;
 	}
 
 	public List<Song> getPlaylist() {

@@ -15,7 +15,7 @@ public class PlaylistShowView extends BorderPane {
     Label headerLabel;
     ListView<Playlist> playlistListView;
     public PlaylistShowView(){
-        headerLabel = new Label("All Playlists");
+        headerLabel = new Label("All Playlists, you may drop files.m3u to add more");
         this.setTop(headerLabel);
 
         playlistListView = new ListView<>();

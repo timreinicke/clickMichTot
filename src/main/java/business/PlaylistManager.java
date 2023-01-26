@@ -3,7 +3,10 @@ package business;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import exceptions.PlaylistNotFoundException;
+import exceptions.SongNotFoundException;
+import presentation.uicomponents.AlertBox;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Array;
@@ -36,6 +39,29 @@ public class PlaylistManager {
 		for(File fileEntry: Objects.requireNonNull(folder.listFiles())) {
 			playlistManager.add(new Playlist(fileEntry));
 		}
+	}
+
+	public void addPlaylist(File f) throws InvalidDataException, UnsupportedTagException, IOException {
+		Playlist newPL = new Playlist(f);
+		if(!(f.length() == 0) && !checkIfExists(newPL)) {
+			playlistManager.add(newPL);
+		}else {
+			AlertBox.display("PLAYLIST EMPTY OR EXISTS ALREADY", "Your file is empty or exists as playlist already");
+		}
+	}
+	public boolean checkIfExists(Playlist added){
+		for(Playlist p : playlistManager){
+			if(added.sizeOf() != p.sizeOf()) continue;
+			boolean exists = true;
+			for(Song s : added.getPlaylist()){
+				if(!p.searchSong(s)){
+					exists = false;
+					break;
+				}
+			}
+			if(exists) return true;
+		}
+		return false;
 	}
 
 	public ArrayList<Playlist> getPlaylistManager() {

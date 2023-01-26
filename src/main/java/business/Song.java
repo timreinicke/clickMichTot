@@ -43,6 +43,13 @@ public class Song {
 		}
 	}
 
+	public boolean isEqual(Song s){
+		if(this.getTitle().equals(s.getTitle()) && this.getArtist().equals(s.getArtist())){
+			return true;
+		}
+		return false;
+	}
+
 	public String getTitle() {
 		return title;
 	}
