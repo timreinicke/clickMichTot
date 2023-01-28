@@ -3,6 +3,8 @@ package presentation.uicomponents.menu;
 import application.GameApplication;
 import business.MP3;
 
+import java.io.FileNotFoundException;
+
 /*
  * Controller fuer das Menu, ist verantwortlich fuer Szenenaenderung
  */
@@ -27,15 +29,27 @@ public class MenuViewController {
     public void initialize(){
 
         view.buttonPlaylist.setOnAction(mouseEvent -> {
-            application.switchScene("PlaylistOverView");
+            try {
+                application.switchScene("PlaylistOverView");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         view.buttonPlayer.setOnAction(mouseEvent -> {
-            application.switchScene("PlayerView");
+            try {
+                application.switchScene("PlayerView");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         view.buttonSettings.setOnAction(mouseEvent -> {
-            application.switchScene("SettingsView");
+            try {
+                application.switchScene("SettingsView");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 

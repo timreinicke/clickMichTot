@@ -51,6 +51,19 @@ Text {
 	-fx-background-radius: 73px;
 	-fx-border-color: white;
 
+
+}
+
+.button-click.inactive {
+	visibility: hidden;
+}
+
+.timerCircle {
+	-fx-background-color: aqua;
+}
+
+.timerCircle.inactive {
+	visibility: hidden;
 }
 
 .icon-button.active {

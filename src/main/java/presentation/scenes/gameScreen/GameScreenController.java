@@ -12,6 +12,8 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.FileInputStream;
@@ -29,11 +31,12 @@ public class GameScreenController extends Thread {
     private final ImageView hero_view;
     private final StackPane buttonView;
     Mp3File mp3File;
+    String filename;
 
-    public GameScreenController() throws FileNotFoundException {
+    public GameScreenController(String filename) throws FileNotFoundException {
         this.view = new GameScreenView();
         this.hero_view = view.hero_view;
-
+        this.filename = filename;
         buttonView = this.view.buttonView;
 
         buttonSpawn().start();
@@ -61,7 +64,7 @@ public class GameScreenController extends Thread {
     public Thread buttonSpawn() {
         return new Thread(() -> {
             try {
-                mp3File = new Mp3File("src/main/resources/application/music/tracks/track1.mp3");
+                mp3File = new Mp3File(this.filename);
             } catch (IOException | UnsupportedTagException | InvalidDataException e) {
                 throw new RuntimeException(e);
             }
@@ -79,7 +82,7 @@ public class GameScreenController extends Thread {
 
             BeatDetect beat = new BeatDetect(2048, 44100.0f);
             beat.detectMode(BeatDetect.FREQ_ENERGY);
-            beat.setSensitivity(100);
+            beat.setSensitivity(1000);
 
             Timer removeButtons = new Timer();
             removeButtons.schedule(new TimerTask() {
@@ -96,37 +99,39 @@ public class GameScreenController extends Thread {
                 beat.detect(player.mix);
 
                 if (beat.isRange(15, 20, 4)) {
-                    if (i == 0) {
+                    if (i > 0) {
+                        i++;
+
+                        x = x + 90;
+                        y = y + (int) (Math.random() * 25);
+                    } else {
+                        i++;
                         x = (int) (Math.random() * view.getWidth() - view.getWidth() / 2 - 250);
                         y = (int) (Math.random() * view.getHeight() - view.getHeight() / 2 - 250);
                     }
 
-                    i++;
-
-                    x = x + 90;
-                    y = y + 5;
-
                     String id = i + "." + j;
                     Button tap = new Button(String.valueOf(i));
+                    Circle timerCircle = new Circle();
+                    timerCircle.setRadius(60);
+                    timerCircle.getStyleClass().add("timerCircle");
+                    timerCircle.setFill(Color.color(1.0, 0,0));
                     buttonManager.put(id, tap);
 
                     double z = view.getWidth() / 2 - view.boss_view.getFitWidth();
 
                     tap.setTranslateX(x);
                     tap.setTranslateY(y);
+                    timerCircle.setTranslateX(x);
+                    timerCircle.setTranslateY(y);
                     view.boss_view.setTranslateX(z);
 
                     Platform.runLater(() -> {
                         tap.getStyleClass().add("button-click");
-                        // view.getChildren().add(tap);
+                        buttonView.getChildren().add(timerCircle);
                         buttonView.getChildren().add(tap);
-                    });
 
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    });
 
                     Timer buttonDisable = new Timer();
                     buttonDisable.schedule(new TimerTask() {
@@ -137,15 +142,16 @@ public class GameScreenController extends Thread {
                                     // buttonView.getChildren().remove(buttonManager.get(id));
                                     buttonManager.remove(id);
                                 }
-                                tap.setDisable(true);
+                                tap.getStyleClass().add("inactive");
                             });
                         }
                     }, 3000);
 
-                    tap.setId(i + "." + j);
+                    tap.setId(id);
                     tap.setOnAction(e -> {
+                        timerCircle.getStyleClass().add("inactive");
+                        tap.getStyleClass().add("inactive");
                         move(hero_view);
-                        tap.setDisable(true);
                     });
 
                     if (i == 4) {

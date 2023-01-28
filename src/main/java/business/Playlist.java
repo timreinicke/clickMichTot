@@ -2,7 +2,6 @@ package business;
 
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
-import exceptions.SongNotFoundException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,8 +9,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 /*
  * erstellt Playlisten, die dann in PlaylistManager verwaltet werden.
  * Implementiert Cloneable um eine ShufflePlaylist erstellen zu können

@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import presentation.uicomponents.songlistShow.SonglistController;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -63,7 +64,11 @@ public class PlaylistShowController{
                 throw new RuntimeException(ex);
             }
 
-            application.switchScene("SonglistScreen", "SongList");
+            try {
+                application.switchScene("SonglistScreen", "SongList");
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         ObservableList<Playlist> playlistContent = FXCollections.observableArrayList();

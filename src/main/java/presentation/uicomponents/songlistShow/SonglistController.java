@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import presentation.uicomponents.playlistShow.PlaylistCell;
 import presentation.uicomponents.playlistShow.PlaylistShowView;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 
@@ -34,8 +35,6 @@ public class SonglistController {
 
         this.songView = new SonglistShowView();
 
-        showPlaylist = new ListView<>();
-
         allSongsView = songView.allSongs;
 
         allSongs = new ArrayList<>();
@@ -46,16 +45,17 @@ public class SonglistController {
     public void initialize() {
 
         allSongs = manager.getAktPlaylist().getSongs();
-
         allSongsView.setCellFactory(
                 p -> new SonglistCell()
         );
 
         allSongsView.setOnMouseClicked(e -> {
-            System.out.println(allSongsView.getSelectionModel().getSelectedItems());
+            try {
+                application.switchScene("GameApplication", "GameScreen", allSongsView.getSelectionModel().getSelectedItem().getFilename());
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
             player.setAktSong(allSongsView.getSelectionModel().getSelectedItem());
-
-            application.switchScene("SonglistScreen");
         });
 
         ObservableList<Song> songsContent = FXCollections.observableArrayList();

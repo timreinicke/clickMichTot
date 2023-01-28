@@ -7,9 +7,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import presentation.scenes.gameScreen.GameScreenController;
 import presentation.scenes.playlistMenu.PlaylistMenuController;
 import presentation.scenes.songMenu.SongMenuController;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -49,22 +51,20 @@ public class GameApplication extends Application {
         }
     }
 
-    public void switchScene(String viewName, String... optPane) {
+    public void switchScene(String viewName, String... optPane) throws FileNotFoundException {
 
         if(mainScene != null) {
-            System.out.println("hier");
             Pane nextView = scenes.get(viewName);
             if(nextView != null) {
-                System.out.println("bin");
                 if(optPane.length == 0) {
-                    System.out.println("ich");
                     mainScene.setRoot(nextView);
                 } else if(optPane[0].equals("SongList")) {
-                    System.out.println("nicht");
                     SongMenuController songlistMenu = new SongMenuController(this, manager, player);
                     mainScene.setRoot(songlistMenu.getView());
+                } else if(optPane[0].equals("GameScreen") && !Objects.equals(optPane[1], "")) {
+                    GameScreenController game = new GameScreenController(optPane[0]);
+                    mainScene.setRoot(game.getView());
                 }
-
             }
         }
     }

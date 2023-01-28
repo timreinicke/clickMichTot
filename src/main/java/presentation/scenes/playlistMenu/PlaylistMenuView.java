@@ -5,6 +5,6 @@ import javafx.scene.layout.HBox;
 public class PlaylistMenuView extends HBox {
     HBox view;
     public PlaylistMenuView(){
-        view = new HBox();
+
     }
 }
