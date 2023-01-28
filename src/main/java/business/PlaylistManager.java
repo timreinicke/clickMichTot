@@ -19,7 +19,6 @@ import java.util.*;
 public class PlaylistManager {
 	public ArrayList<Playlist> playlistManager;
 	Playlist aktPlaylist;
-	Playlist shufflePlaylist;
 	Einstellungen settings;
 
 	public PlaylistManager (Einstellungen settings) throws IOException, InvalidDataException, UnsupportedTagException {
@@ -53,7 +52,7 @@ public class PlaylistManager {
 		for(Playlist p : playlistManager){
 			if(added.sizeOf() != p.sizeOf()) continue;
 			boolean exists = true;
-			for(Song s : added.getPlaylist()){
+			for(Song s : added.getSongs()){
 				if(!p.searchSong(s)){
 					exists = false;
 					break;

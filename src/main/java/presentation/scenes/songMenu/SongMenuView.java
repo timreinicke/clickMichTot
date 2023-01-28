@@ -3,9 +3,9 @@ package presentation.scenes.songMenu;
 import javafx.scene.layout.BorderPane;
 
 
-public class songMenuView extends BorderPane {
+public class SongMenuView extends BorderPane {
     BorderPane view;
-    public songMenuView(){
+    public SongMenuView(){
 
         view = new BorderPane();
     }

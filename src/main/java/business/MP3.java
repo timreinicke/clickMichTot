@@ -28,8 +28,6 @@ public class MP3 extends Thread {
     boolean shuffle = false;
     boolean repeat = false;
     private final PlaylistManager manager;
-    private Song prevSong;
-    private Song nextSong;
     private Song aktSong;
     private boolean isPaused;
     private Thread timerThread;
@@ -131,6 +129,10 @@ public class MP3 extends Thread {
             return aktSong;
         }
         return null;
+    }
+
+    public void setAktSong(Song s){
+        this.aktSong = s;
     }
 }
 

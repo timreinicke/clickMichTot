@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class Playlist implements Cloneable {
 
-	List<Song> playlist;
+	ArrayList<Song> playlist;
 	int next;
 	File f;
 	String playlistName;
@@ -62,7 +62,7 @@ public class Playlist implements Cloneable {
 		next = -1;
 	}
 
-	public List<Song> getSongs() {
+	public ArrayList<Song> getSongs() {
 		return playlist;
 	}
 
@@ -85,10 +85,6 @@ public class Playlist implements Cloneable {
 			i++;
 		}
 		return i;
-	}
-
-	public List<Song> getPlaylist() {
-		return playlist;
 	}
 
 	public String getPlaylistName() {return playlistName;}

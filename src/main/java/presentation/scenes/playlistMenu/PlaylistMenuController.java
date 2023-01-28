@@ -1,7 +1,6 @@
 package presentation.scenes.playlistMenu;
 
 import application.GameApplication;
-import business.Playlist;
 import business.PlaylistManager;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -12,19 +11,18 @@ import presentation.uicomponents.playlistShow.PlaylistShowController;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class playlistMenuController {
-    private playlistMenuView view;
+public class PlaylistMenuController {
+    private PlaylistMenuView view;
     GameApplication application;
     PlaylistManager manager;
     PlaylistShowController playlistView;
-    public playlistMenuController(GameApplication application, PlaylistManager manager){
+    public PlaylistMenuController(GameApplication application, PlaylistManager manager){
         this.manager = manager;
         this.application = application;
-        this.view = new playlistMenuView();
+        this.view = new PlaylistMenuView();
         playlistView = new PlaylistShowController(manager, application);
 
         view.getChildren().add(playlistView.getPlaylistWindow());
@@ -42,15 +40,10 @@ public class playlistMenuController {
 
             if (!(event.getGestureSource() == view) && !dragboard.hasFiles()){
                 dropSupported = false;
-                AlertBox.display("INVALID DATATYPE OR ALREADY IMPLEMENTED", "Your file either has an invalid datatype or is already implemented, please check and try agaim");
+                AlertBox.display("ALREADY IMPLEMENTED", "Your file is already implemented, please check and try again");
             }
-                /*modes = dragboard.getTransferModes();
-                for(TransferMode mode : modes) {
-                    TransferMode.COPY = modes;
-                }*/
 
             if(dropSupported){
-                System.out.println("hier");
                 event.acceptTransferModes(TransferMode.COPY);
             }
                 }
@@ -69,7 +62,6 @@ public class playlistMenuController {
                 content.putFiles(supportedFiles);
                 dragboard.setContent(content);
 
-            System.out.println("bin");
                 event.consume();
         });
 
@@ -79,13 +71,13 @@ public class playlistMenuController {
             List<File> fileList;
             List<File> supportedFiles = null;
             fileList = dragboard.getFiles();
-
             try {
                 for (File f : fileList) {
                     if (f.getName().endsWith(".m3u")) {
-                        System.out.println("ich");
                         manager.addPlaylist(f);
                         reload();
+                    }else {
+                        AlertBox.display("INVALID DATATYPE", "Your file has an invalid datatype, please check and try again");
                     }
                 }
             } catch (InvalidDataException ex) {
@@ -105,5 +97,5 @@ public class playlistMenuController {
         playlistView = new PlaylistShowController(manager, application);
         view.getChildren().add(playlistView.getPlaylistWindow());
     }
-    public playlistMenuView getView(){return view;}
+    public PlaylistMenuView getView(){return view;}
 }

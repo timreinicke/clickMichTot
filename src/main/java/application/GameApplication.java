@@ -7,11 +7,12 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import presentation.scenes.playlistMenu.playlistMenuController;
-import presentation.scenes.songMenu.songMenuController;
+import presentation.scenes.playlistMenu.PlaylistMenuController;
+import presentation.scenes.songMenu.SongMenuController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class GameApplication extends Application {
     private Stage primaryStage;
@@ -31,11 +32,10 @@ public class GameApplication extends Application {
             player = new MP3(this);
 
             //GameScreenController game = new GameScreenController();
-            playlistMenuController playlistMenu = new playlistMenuController(this, manager);
-            songMenuController songlistMenu = new songMenuController(this, manager);
+            PlaylistMenuController playlistMenu = new PlaylistMenuController(this, manager);
+            scenes.put("SonglistScreen", playlistMenu.getView());
             //scenes.put("GameScreen", game.getView());
             scenes.put("PlaylistScreen", playlistMenu.getView());
-            scenes.put("SonglistScreen", songlistMenu.getView());
             Pane root = scenes.get("PlaylistScreen");
 
             Scene scene = new Scene(root,1800,800);
@@ -50,10 +50,21 @@ public class GameApplication extends Application {
     }
 
     public void switchScene(String viewName, String... optPane) {
+
         if(mainScene != null) {
+            System.out.println("hier");
             Pane nextView = scenes.get(viewName);
             if(nextView != null) {
-                mainScene.setRoot(nextView);
+                System.out.println("bin");
+                if(optPane.length == 0) {
+                    System.out.println("ich");
+                    mainScene.setRoot(nextView);
+                } else if(optPane[0].equals("SongList")) {
+                    System.out.println("nicht");
+                    SongMenuController songlistMenu = new SongMenuController(this, manager, player);
+                    mainScene.setRoot(songlistMenu.getView());
+                }
+
             }
         }
     }

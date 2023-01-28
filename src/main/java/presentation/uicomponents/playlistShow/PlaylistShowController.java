@@ -6,14 +6,11 @@ import business.PlaylistManager;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import exceptions.PlaylistNotFoundException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.util.Callback;
+import presentation.uicomponents.songlistShow.SonglistController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +32,6 @@ public class PlaylistShowController{
         this.playlistWindow = new PlaylistShowView();
 
         showPlaylist = new ListView<>();
-       // showPlaylist = playlistView.playlistListView;
 
         allPlaylistView = playlistWindow.playlistListView;
 
@@ -67,7 +63,7 @@ public class PlaylistShowController{
                 throw new RuntimeException(ex);
             }
 
-            application.switchScene("SonglistScreen");
+            application.switchScene("SonglistScreen", "SongList");
         });
 
         ObservableList<Playlist> playlistContent = FXCollections.observableArrayList();
