@@ -34,18 +34,27 @@ Text {
 }
 
 .gamescreen {
-	-fx-background-image: url("images/background.jpeg");
+	-fx-background-image: url("images/background.jpg");
+	-fx-background-color: rgba(0,0,0,0.5);
 	-fx-background-position: center;
 	-fx-background-size: cover;
 }
 
+.highscore {
+	-fx-fill: white;
+	-fx-font-family: "HK Grotesk Wide";
+	-fx-font-size: 30px;
+	-fx-font-weight: bold;
+	-fx-padding: 10;
+}
+
 .button-click {
-	-fx-border-radius: 75px;
+	-fx-border-radius: 80px;
 	-fx-min-width: 75px;
 	-fx-min-height: 75px;
 	-fx-background-size: 73px 73px;
 	-fx-background-position: center;
-	-fx-font-size: 50px;
+	-fx-font-size: 40px;
 	-fx-text-fill: white;
 	-fx-background-color: black;
 	-fx-background-radius: 73px;

@@ -48,7 +48,7 @@ public class SonglistController {
 
         allSongsView.setOnMouseClicked(e -> {
             try {
-                application.switchScene("GameApplication", "GameScreen", allSongsView.getSelectionModel().getSelectedItem().getFilename());
+                application.switchScene("GameScreen", "GameScreen", allSongsView.getSelectionModel().getSelectedItem().getFilename());
             } catch (FileNotFoundException ex) {
                 throw new RuntimeException(ex);
             }
