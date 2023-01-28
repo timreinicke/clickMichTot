@@ -2,15 +2,13 @@ package presentation.uicomponents.songlistShow;
 
 import application.GameApplication;
 import business.MP3;
-import business.Playlist;
 import business.PlaylistManager;
 import business.Song;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import presentation.uicomponents.playlistShow.PlaylistCell;
-import presentation.uicomponents.playlistShow.PlaylistShowView;
+
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 
 public class SonglistController {
     PlaylistManager manager;
-    ListView<Playlist> showPlaylist;
     GameApplication application;
 
     MP3 player;
