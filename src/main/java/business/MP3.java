@@ -53,9 +53,7 @@ public class MP3 extends Thread {
         songName = new SimpleStringProperty();
         aktSong = new SimpleObjectProperty<>();
 
-        aktSong.addListener(e -> {
-            SongMenuController.reload();
-        });
+        aktSong.addListener(e -> SongMenuController.reload());
     }
 
     public void pause() throws InterruptedException {

@@ -8,7 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import presentation.scenes.gameScreen.GameScreenController;
+import presentation.scenes.leaderboard.LeaderboardController;
+import presentation.scenes.leaderboardEntry.LeaderboardEntryController;
+import presentation.scenes.mainMenu.MainMenuController;
 import presentation.scenes.playlistMenu.PlaylistMenuController;
+import presentation.scenes.settings.SettingsController;
 import presentation.scenes.songMenu.SongMenuController;
 
 import java.io.FileNotFoundException;
@@ -35,9 +39,19 @@ public class GameApplication extends Application {
 
             //GameScreenController game = new GameScreenController();
             PlaylistMenuController playlistMenu = new PlaylistMenuController(this, manager);
+            LeaderboardController leaderboard = new LeaderboardController(this);
+            LeaderboardEntryController leaderboardADD = new LeaderboardEntryController();
+            MainMenuController mainMenu = new MainMenuController(this);
+            SettingsController settings = new SettingsController();
+
             scenes.put("SonglistScreen", playlistMenu.getView());
             scenes.put("GameScreen", playlistMenu.getView());
             scenes.put("PlaylistScreen", playlistMenu.getView());
+            scenes.put("Leaderboard", leaderboard.getView());
+            scenes.put("LeaderboardADD", leaderboardADD.getView());
+            scenes.put("MainMenu", mainMenu.getView());
+            scenes.put("Settings", settings.getView());
+
             Pane root = scenes.get("PlaylistScreen");
 
             Scene scene = new Scene(root,1800,800);

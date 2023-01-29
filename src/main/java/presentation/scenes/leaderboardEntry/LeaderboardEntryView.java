@@ -1,4 +1,6 @@
 package presentation.scenes.leaderboardEntry;
 
-public class LeaderboardEntryView {
+import javafx.scene.layout.Pane;
+
+public class LeaderboardEntryView extends Pane {
 }

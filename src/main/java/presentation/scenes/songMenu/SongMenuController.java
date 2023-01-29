@@ -29,6 +29,10 @@ public class SongMenuController {
         public static Label artist;
         public static Label duration;
 
+        protected Button backButton;
+
+        protected Button settings;
+
         public SongMenuController(GameApplication application, PlaylistManager manager, MP3 player) throws FileNotFoundException {
 
             this.manager = manager;
@@ -41,25 +45,17 @@ public class SongMenuController {
             artist = view.artist;
             duration = view.duration;
 
+            backButton = view.backButton;
+            settings = view.settingsButton;
+
             songContent = new SonglistController(manager,application, player);
             view.songSelection.getChildren().add(songContent.getSongView());
 
-           /* view.settings.getChildren().addAll(view.backButton, view.settingsButton);
-            view.songSelection.getChildren().add(songContent.getSongView());
-            view.coverPreview.getChildren().addAll(view.hero_view, view.hero2_view);
-            view.songInformation.getChildren().addAll(songName, artist, duration);
-            view.songPreview.getChildren().addAll(view.coverPreview, view.songInformation);
-            view.gameControls.getChildren().addAll(view.difficulty_easy, view.difficulty_medium, view.difficulty_hard, view.startGame);
-            view.getChildren().addAll(view.settings, view.songSelection, view.songPreview, view.gameControls);
-
-            view.settings.setAlignment(Pos.TOP_CENTER);
-            view.songSelection.setAlignment(Pos.CENTER_LEFT);
-            view.songPreview.setAlignment(Pos.CENTER_RIGHT);
-            view.gameControls.setAlignment(Pos.BOTTOM_CENTER);*/
+            initialize();
         }
 
         public void initialize(){
-            view.backButton.setOnAction(e -> {
+            backButton.setOnAction(e -> {
                 try {
                     application.switchScene("PlaylistScreen");
                 } catch (FileNotFoundException ex) {
@@ -67,8 +63,13 @@ public class SongMenuController {
                 }
             });
 
-
-
+            settings.setOnAction(e-> {
+                    try {
+                        application.switchScene("Settings");
+                    } catch (FileNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
+            });
 
         }
         public static void reload() {

@@ -49,4 +49,8 @@ public class LeaderboardController {
             e.printStackTrace();
         }
     }
+
+    public LeaderboardView getView(){
+        return view;
+    }
 }

@@ -8,13 +8,14 @@ import java.io.FileNotFoundException;
 
 public class MainMenuController {
     GameApplication application;
+
+    MainMenuView view;
     private Button play;
     private Button leaderboard;
     private Button settings;
 
     private HBox settingsBox;
 
-    MainMenuView view;
     public MainMenuController(GameApplication application){
 
         this.application = application;
@@ -49,5 +50,9 @@ public class MainMenuController {
                 throw new RuntimeException(ex);
             }
         });
+    }
+
+    public MainMenuView getView(){
+        return view;
     }
 }

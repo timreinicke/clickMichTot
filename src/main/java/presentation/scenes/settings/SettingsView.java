@@ -1,4 +1,6 @@
 package presentation.scenes.settings;
 
-public class SettingsView {
+import javafx.scene.layout.Pane;
+
+public class SettingsView extends Pane {
 }

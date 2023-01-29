@@ -73,18 +73,17 @@ public class SongMenuView extends BorderPane {
         difficulty_easy.getStyleClass().add("round-button");
         difficulty_medium.getStyleClass().add("round-button");
         difficulty_hard.getStyleClass().add("round-button");
-       startGame.getStyleClass().add("round-button");
+        startGame.getStyleClass().add("round-button");
 
         settings.getChildren().addAll(backButton, settingsButton);
         coverPreview.getChildren().addAll(hero_view, hero2_view);
         songInformation.getChildren().addAll(songName, artist, duration);
         songPreview.getChildren().addAll(coverPreview, songInformation);
         gameControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard, startGame);
-        this.getChildren().addAll(settings, songSelection, songPreview, gameControls);
 
-        /*settings.setAlignment(Pos.TOP_CENTER);
-        songSelection.setAlignment(Pos.CENTER_LEFT);
-        songPreview.setAlignment(Pos.CENTER_RIGHT);
-        gameControls.setAlignment(Pos.BOTTOM_CENTER);*/
+        this.setLeft(songSelection);
+        this.setTop(settings);
+        this.setCenter(songPreview);
+        this.setBottom(gameControls);
     }
 }
