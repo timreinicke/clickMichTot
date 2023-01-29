@@ -11,9 +11,15 @@ import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import exceptions.SongNotFoundException;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import listener.SonglistenerInterface;
+import presentation.scenes.songMenu.SongMenuController;
 
 import java.io.IOException;
+import java.net.http.WebSocket;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Thread und Playerverwaltung, um Einstellungen auf Musik vorzunehmen (skip, play, pause..)
@@ -28,7 +34,7 @@ public class MP3 extends Thread {
     boolean shuffle = false;
     boolean repeat = false;
     private final PlaylistManager manager;
-    private Song aktSong;
+    SimpleObjectProperty<Song> aktSong;
     private boolean isPaused;
     private Thread timerThread;
     private Thread playThread;
@@ -45,65 +51,11 @@ public class MP3 extends Thread {
         currTime = new SimpleIntegerProperty(0);
         manager = application.getManager();
         songName = new SimpleStringProperty();
+        aktSong = new SimpleObjectProperty<>();
 
-    }
-
-    /*
-     * playSong setzt unsere Merkvariable für Pause auf false und setzt letzen, aktuellen und naechsten Song
-     * Falls der Audioplayer noch keine Musik spielt, laed er das MP3-File
-     * Falls playSong aber schon Musikspielt, wird er pausiert, da sonst die Lieder in verschiedenen Threads uebereinander spielen
-     */
-
-
-    /*
-     * erstellt einen neuen Thread um den Timer eines Liedes zu merken
-     */
-
-    public Thread createTimerThread() {
-        return new Thread(() -> {
-            while (playThread.isAlive()) {
-                try {
-                    Thread.sleep(1000);
-                    currTime.setValue(currTime.getValue() + 1000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-                if(aktSong.getDuration() == currTime.getValue() / 1000){
-                }
-            }
+        aktSong.addListener(e -> {
+            SongMenuController.reload();
         });
-    }
-
-    /*
-     * Play fragt ab, ob das Lied pausiert ist, wenn ja spielt er ab dem pausierten Zeitpunkt weiter.
-     * Ansonsten laedt er den neuen Song und setzt ihn auf einen neuen Pfad
-     */
-
-    public void play() throws IOException, SongNotFoundException {
-        if (isPaused) {
-            playAtTime();
-            return;
-        }
-        songName.setValue(aktSong.getTitle());
-        audioPlayer = minim.loadMP3File(aktSong.getFilename());
-        currTime.setValue(0);
-        playThread = new Thread(() -> audioPlayer.play());
-
-        timerThread = createTimerThread();
-        playThread.start();
-        timerThread.start();
-    }
-
-    /*
-     * Laedt aktuellen Song und spielt ihn mit der letzten gemerkten Zeit ab und startet den Thread
-     */
-
-    public void playAtTime() {
-        audioPlayer = minim.loadMP3File(aktSong.getFilename());
-        playThread = new Thread(() -> audioPlayer.play(currTime.getValue()));
-        timerThread = createTimerThread();
-        playThread.start();
-        timerThread.start();
     }
 
     public void pause() throws InterruptedException {
@@ -126,13 +78,13 @@ public class MP3 extends Thread {
 
     public Song getAktSong() {
         if (aktSong != null) {
-            return aktSong;
+            return aktSong.getValue();
         }
         return null;
     }
 
     public void setAktSong(Song s){
-        this.aktSong = s;
+        this.aktSong.setValue(s);
     }
 }
 

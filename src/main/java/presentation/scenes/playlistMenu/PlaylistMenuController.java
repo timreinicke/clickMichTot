@@ -5,11 +5,13 @@ import business.PlaylistManager;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.input.*;
 import presentation.uicomponents.AlertBox;
 import presentation.uicomponents.playlistShow.PlaylistShowController;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -19,17 +21,28 @@ public class PlaylistMenuController {
     GameApplication application;
     PlaylistManager manager;
     PlaylistShowController playlistView;
+    Button back;
     public PlaylistMenuController(GameApplication application, PlaylistManager manager){
         this.manager = manager;
         this.application = application;
         this.view = new PlaylistMenuView();
-        playlistView = new PlaylistShowController(manager, application);
+        back = view.back;
 
-        view.getChildren().add(playlistView.getPlaylistWindow());
+        playlistView = new PlaylistShowController(manager, application);
+        view.list.getChildren().add(playlistView.getPlaylistWindow());
+
         initialize();
+
+
     }
     public void initialize(){
-
+       /* back.setOnAction(e -> {
+            try {
+                application.switchScene("MainMenu");
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });*/
         view.setOnDragOver((EventHandler<DragEvent>) event -> {
 
             boolean dropSupported = true;

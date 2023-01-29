@@ -47,12 +47,13 @@ public class SonglistController {
         );
 
         allSongsView.setOnMouseClicked(e -> {
-            try {
+            player.setAktSong(allSongsView.getSelectionModel().getSelectedItem());
+         /*   try {
                 application.switchScene("GameApplication", "GameScreen", allSongsView.getSelectionModel().getSelectedItem().getFilename());
             } catch (FileNotFoundException ex) {
                 throw new RuntimeException(ex);
             }
-            player.setAktSong(allSongsView.getSelectionModel().getSelectedItem());
+            */
         });
 
         ObservableList<Song> songsContent = FXCollections.observableArrayList();
