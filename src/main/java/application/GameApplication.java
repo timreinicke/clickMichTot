@@ -40,9 +40,9 @@ public class GameApplication extends Application {
             //GameScreenController game = new GameScreenController();
             PlaylistMenuController playlistMenu = new PlaylistMenuController(this, manager);
             LeaderboardController leaderboard = new LeaderboardController(this);
-            LeaderboardEntryController leaderboardADD = new LeaderboardEntryController();
+            LeaderboardEntryController leaderboardADD = new LeaderboardEntryController(this);
             MainMenuController mainMenu = new MainMenuController(this);
-            SettingsController settings = new SettingsController();
+            SettingsController settings = new SettingsController(this, player, manager, this.settings);
 
             scenes.put("SonglistScreen", playlistMenu.getView());
             scenes.put("GameScreen", playlistMenu.getView());
@@ -52,7 +52,7 @@ public class GameApplication extends Application {
             scenes.put("MainMenu", mainMenu.getView());
             scenes.put("Settings", settings.getView());
 
-            Pane root = scenes.get("PlaylistScreen");
+            Pane root = scenes.get("LeaderboardADD");
 
             Scene scene = new Scene(root,1800,800);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -85,5 +85,15 @@ public class GameApplication extends Application {
 
     public PlaylistManager getManager() {
         return manager;
+    }
+
+    public void reloadPlaylists(){
+        PlaylistMenuController playlistMenu = new PlaylistMenuController(this, manager);
+        scenes.put("Playlistscreen", playlistMenu.getView());
+    }
+
+    public void reloadLeaderboard(){
+        LeaderboardController leaderboard = new LeaderboardController(this);
+        scenes.put("Leaderboard", leaderboard.getView());
     }
 }

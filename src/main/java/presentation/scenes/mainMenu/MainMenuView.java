@@ -1,25 +1,29 @@
 package presentation.scenes.mainMenu;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
-public class MainMenuView extends Pane {
+public class MainMenuView extends BorderPane {
 
+    protected Label viewName;
     protected Button play;
     protected Button leaderboard;
     protected Button settings;
 
-    protected HBox settingsBox;
+    protected VBox settingsBox;
 
     public MainMenuView() {
+        viewName = new Label("Main Menu");
         play = new Button("PLAY");
         leaderboard = new Button("LEADERBOARD");
         settings = new Button("SETTINGS");
 
-        settingsBox = new HBox();
+        settingsBox = new VBox();
 
         settingsBox.getChildren().addAll(play, leaderboard, settings);
-        this.getChildren().add(settingsBox);
+        this.setCenter(settingsBox);
+        this.setTop(viewName);
     }
 }

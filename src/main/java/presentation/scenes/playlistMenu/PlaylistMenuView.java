@@ -2,10 +2,10 @@ package presentation.scenes.playlistMenu;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 
-public class PlaylistMenuView extends Pane {
+public class PlaylistMenuView extends BorderPane {
     HBox list;
     Button back;
     public PlaylistMenuView(){
@@ -13,11 +13,12 @@ public class PlaylistMenuView extends Pane {
         back = new Button("Back to Main Menu");
         back.getStyleClass().add("backButton");
 
-        this.getChildren().addAll(list, back);
+        this.setTop(back);
+        back.setAlignment(Pos.TOP_LEFT);
+        this.setCenter(list);
 
         list.setAlignment(Pos.CENTER);
         list.setMinWidth(this.getMinWidth());
         list.setMinHeight(this.getMinHeight());
-        back.setAlignment(Pos.TOP_LEFT);
     }
 }

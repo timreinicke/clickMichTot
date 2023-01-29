@@ -17,17 +17,18 @@ import java.io.FileNotFoundException;
 
 public class SongMenuView extends BorderPane {
 
-    VBox settings;
+    HBox settings;
     HBox songSelection;
     StackPane coverPreview;
     VBox songInformation;
 
     HBox songPreview;
-    VBox gameControls;
+    HBox gameControls;
 
 
     Button backButton;
     Button settingsButton;
+    Label viewName;
 
     String coverDir = "src/main/resources/application/music/album_artworks/";
     ImageViewPane coverViewPane;
@@ -43,11 +44,13 @@ public class SongMenuView extends BorderPane {
     Button difficulty_hard;
     Button startGame;
     public SongMenuView() throws FileNotFoundException {
-        settings = new VBox();
+
+        settings = new HBox();
         backButton = new Button("Back to view all Playlists");
         settingsButton = new Button("settings");
         backButton.getStyleClass().addAll("backButton", "icon-button");
         settingsButton.getStyleClass().add("icon-button");
+        viewName = new Label("Song Selection");
 
         songSelection = new HBox();
 
@@ -65,7 +68,7 @@ public class SongMenuView extends BorderPane {
 
         songPreview = new HBox();
 
-        gameControls = new VBox();
+        gameControls = new HBox();
         difficulty_easy = new Button("EASY");
         difficulty_medium = new Button("MEDIUM");
         difficulty_hard = new Button("HARD");
@@ -75,15 +78,22 @@ public class SongMenuView extends BorderPane {
         difficulty_hard.getStyleClass().add("round-button");
         startGame.getStyleClass().add("round-button");
 
-        settings.getChildren().addAll(backButton, settingsButton);
+        settings.getChildren().addAll(backButton, settingsButton,viewName);
         coverPreview.getChildren().addAll(hero_view, hero2_view);
         songInformation.getChildren().addAll(songName, artist, duration);
         songPreview.getChildren().addAll(coverPreview, songInformation);
         gameControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard, startGame);
 
         this.setLeft(songSelection);
+
         this.setTop(settings);
+        backButton.setAlignment(Pos.BASELINE_LEFT);
+        viewName.setAlignment(Pos.BASELINE_CENTER);
+        settingsButton.setAlignment(Pos.BASELINE_RIGHT);
+
+
         this.setCenter(songPreview);
+
         this.setBottom(gameControls);
     }
 }

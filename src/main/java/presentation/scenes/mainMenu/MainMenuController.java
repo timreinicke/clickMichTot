@@ -14,8 +14,6 @@ public class MainMenuController {
     private Button leaderboard;
     private Button settings;
 
-    private HBox settingsBox;
-
     public MainMenuController(GameApplication application){
 
         this.application = application;

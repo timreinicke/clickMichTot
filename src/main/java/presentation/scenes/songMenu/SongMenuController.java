@@ -20,6 +20,7 @@ public class SongMenuController {
         GameApplication application;
         PlaylistManager manager;
         static MP3 player;
+
         SonglistenerInterface songchange;
         SonglistController songContent;
 

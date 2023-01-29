@@ -36,13 +36,13 @@ public class PlaylistMenuController {
 
     }
     public void initialize(){
-       /* back.setOnAction(e -> {
+       back.setOnAction(e -> {
             try {
                 application.switchScene("MainMenu");
             } catch (FileNotFoundException ex) {
                 throw new RuntimeException(ex);
             }
-        });*/
+        });
         view.setOnDragOver((EventHandler<DragEvent>) event -> {
 
             boolean dropSupported = true;

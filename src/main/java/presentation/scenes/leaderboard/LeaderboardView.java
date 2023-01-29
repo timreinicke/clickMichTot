@@ -4,35 +4,41 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class LeaderboardView extends Pane {
+public class LeaderboardView extends BorderPane {
 
     ScrollPane scrollPane;
-    VBox controls;
-    HBox leaderboardWindow;
+    HBox controls;
+    VBox leaderboardWindow;
     Button backButton;
+    Button settingsButton;
     Label leaderBoardLabel;
+    Label viewName;
     protected ListView<String> leaders;
 
     public LeaderboardView(){
 
         scrollPane = new ScrollPane();
-        controls = new VBox();
-        leaderboardWindow = new HBox();
+        controls = new HBox();
+        leaderboardWindow = new VBox();
 
-        backButton = new Button();
+        backButton = new Button("back");
+        settingsButton = new Button("Settings");
         backButton.getStyleClass().add("backButton");
-        leaderBoardLabel = new Label("Leaderboard");
+        leaderBoardLabel = new Label("Our POG Champs");
+        viewName = new Label("Leaderboard");
         leaders = new ListView<>();
 
         scrollPane.setContent(leaders);
         scrollPane.setFitToWidth(true);
 
         leaderboardWindow.getChildren().addAll(leaderBoardLabel, leaders);
-        controls.getChildren().add(backButton);
-        this.getChildren().addAll(controls, leaderboardWindow);
+        controls.getChildren().addAll(backButton, settingsButton, viewName);
+
+        this.setTop(controls);
+        this.setCenter(leaderboardWindow);
     }
 }
