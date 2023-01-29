@@ -47,7 +47,6 @@ public class SonglistController {
         );
 
         allSongsView.setOnMouseClicked(e -> {
-<<<<<<< HEAD
             player.setAktSong(allSongsView.getSelectionModel().getSelectedItem());
          /*   try {
                 application.switchScene("GameApplication", "GameScreen", allSongsView.getSelectionModel().getSelectedItem().getFilename());
