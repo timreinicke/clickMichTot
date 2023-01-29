@@ -36,7 +36,7 @@ public class GameApplication extends Application {
             //GameScreenController game = new GameScreenController();
             PlaylistMenuController playlistMenu = new PlaylistMenuController(this, manager);
             scenes.put("SonglistScreen", playlistMenu.getView());
-            //scenes.put("GameScreen", game.getView());
+            scenes.put("GameScreen", playlistMenu.getView());
             scenes.put("PlaylistScreen", playlistMenu.getView());
             Pane root = scenes.get("PlaylistScreen");
 
@@ -62,7 +62,7 @@ public class GameApplication extends Application {
                     SongMenuController songlistMenu = new SongMenuController(this, manager, player);
                     mainScene.setRoot(songlistMenu.getView());
                 } else if(optPane[0].equals("GameScreen") && !Objects.equals(optPane[1], "")) {
-                    GameScreenController game = new GameScreenController(optPane[0]);
+                    GameScreenController game = new GameScreenController(optPane[1]);
                     mainScene.setRoot(game.getView());
                 }
             }
