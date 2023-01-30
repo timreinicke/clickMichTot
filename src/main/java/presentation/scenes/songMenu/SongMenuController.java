@@ -29,7 +29,7 @@ public class SongMenuController {
         public static Label songName;
         public static Label artist;
         public static Label duration;
-
+        public Button startGame;
         protected Button backButton;
 
         protected Button settings;
@@ -48,6 +48,7 @@ public class SongMenuController {
 
             backButton = view.backButton;
             settings = view.settingsButton;
+            startGame = view.startGame;
 
             songContent = new SonglistController(manager,application, player);
             view.songSelection.getChildren().add(songContent.getSongView());
@@ -70,6 +71,14 @@ public class SongMenuController {
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
+            });
+
+            startGame.setOnAction(e -> {
+                try {
+                    application.switchScene("GameScreen", "GameScreen", player.getAktSong().getFilename());
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             });
 
         }

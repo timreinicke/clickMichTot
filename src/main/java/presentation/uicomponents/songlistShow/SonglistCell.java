@@ -18,9 +18,15 @@ public class SonglistCell extends ListCell<Song> {
         view = new HBox();
 
         songLabel = new Label();
-        artistLabel = new Label();
-        laengeSong = new Label();
+        songLabel.getStyleClass().add("list-cell_label");
 
+        artistLabel = new Label();
+        artistLabel.getStyleClass().add("list-cell_label");
+
+        laengeSong = new Label();
+        laengeSong.getStyleClass().add("list-cell_label");
+
+        this.getStyleClass().add("list-cell");
         view.getChildren().addAll(songLabel, artistLabel, laengeSong);
     }
     protected void updateItem(Song s, boolean empty){

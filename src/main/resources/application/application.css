@@ -17,6 +17,10 @@
 @import "styles/uicomponents/songBox.css";
 @import "styles/uicomponents/controls.css";
 
+* {
+	font-family: Helvetica, serif;
+}
+
 .main-text {
 	-fx-alignment: center;
 	-fx-font-family: "Lucida Grande", Helvetica;
@@ -31,6 +35,30 @@ Text {
 #controller{
 	-fx-alignment: center;
 	-fx-padding: 10;
+}
+
+.list {
+
+}
+
+.list-cell {
+	-fx-min-width: 1000px;
+	-fx-background-color: #181818;
+	-fx-text-alignment: center;
+
+
+}
+
+.list-cell:hover {
+	-fx-background-color: #3f3f40;
+	-fx-cursor: hand;
+}
+
+.list-cell_label {
+	-fx-text-fill: white;
+	-fx-font-size: 18px;
+	-fx-font-family: "HK Grotesk Wide", Helvetica, serif;
+	-fx-font-weight: bold;
 }
 
 .gamescreen {
@@ -97,32 +125,56 @@ Text {
 	-fx-border-radius: 10px;
 }
 
+.menu-button {
+	-fx-min-width: 350px;
+	-fx-border-color: white;
+	-fx-border-radius: 10px;
+	-fx-font-size: 28px;
+	-fx-background-color:#29524A;
+	-fx-font-family: "HK Grotesk Wide", Helvetica, Serif;
+	-fx-text-fill: white;
+	-fx-min-height: 32px;
+	-fx-background-size: 28 28;
+	-fx-background-position: center;
+	-fx-background-radius: 10px;
+	-fx-padding: 12px;
+}
+
+.return-button {
+	-fx-background-radius: 10px;
+	-fx-background-color: #29524A;
+	-fx-text-fill: white;
+	-fx-font-size: 20px;
+	-fx-font-family: "HK Grotesk Wide", Helvetica;
+	-fx-min-width: 32;
+	-fx-min-height: 32;
+	-fx-background-size: 28 28;
+	-fx-background-position:center;
+	-fx-border-color: #3f3f40;
+	-fx-border-radius: 10px;
+	-fx-start-margin: 10px;
+}
+
 .round-button:hover {
 	-fx-background-color: #29524A;
 }
 
 .title {
-	-fx-font-size: 24px;
-	-fx-fill: white;
+	-fx-font-size: 40px;
+	-fx-text-fill: white;
 	-fx-font-family: "HK Grotesk Wide", Helvetica;
 	-fx-text-alignment: center;
+	-fx-font-weight: bold;
 }
 
 .container {
-	-fx-background-color: #061818;
+	-fx-background-color: #181818;
 
 }
 
 .bottom-container {
 	-fx-background-color: #040F0F;
-	-fx-border-color: #818181;
 	-fx-border-style: solid none none none;
-}
-
-.center-container {
-	-fx-background-color: #29524A;
-	-fx-border-color: #818181;
-	-fx-border-style: none none none solid;
 }
 
 .center {

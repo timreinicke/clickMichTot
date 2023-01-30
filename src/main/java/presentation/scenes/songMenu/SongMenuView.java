@@ -24,6 +24,7 @@ public class SongMenuView extends BorderPane {
 
     HBox songPreview;
     HBox gameControls;
+    HBox difficultyControls;
 
 
     Button backButton;
@@ -46,6 +47,7 @@ public class SongMenuView extends BorderPane {
     public SongMenuView() throws FileNotFoundException {
 
         settings = new HBox();
+        difficultyControls = new HBox();
         backButton = new Button("Back to view all Playlists");
         settingsButton = new Button("settings");
         backButton.getStyleClass().addAll("backButton", "icon-button");
@@ -72,7 +74,7 @@ public class SongMenuView extends BorderPane {
         difficulty_easy = new Button("EASY");
         difficulty_medium = new Button("MEDIUM");
         difficulty_hard = new Button("HARD");
-        startGame = new Button("Start Game");
+        startGame = new Button("START GAME");
         difficulty_easy.getStyleClass().add("round-button");
         difficulty_medium.getStyleClass().add("round-button");
         difficulty_hard.getStyleClass().add("round-button");
@@ -82,16 +84,18 @@ public class SongMenuView extends BorderPane {
         coverPreview.getChildren().addAll(hero_view, hero2_view);
         songInformation.getChildren().addAll(songName, artist, duration);
         songPreview.getChildren().addAll(coverPreview, songInformation);
-        gameControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard, startGame);
+        difficultyControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard);
+        gameControls.getChildren().addAll(difficultyControls, startGame);
 
         this.setLeft(songSelection);
 
         this.setTop(settings);
-        backButton.setAlignment(Pos.BASELINE_LEFT);
-        viewName.setAlignment(Pos.BASELINE_CENTER);
-        settingsButton.setAlignment(Pos.BASELINE_RIGHT);
 
+        backButton.setAlignment(Pos.CENTER_LEFT);
+        viewName.setAlignment(Pos.CENTER);
+        settingsButton.setAlignment(Pos.CENTER_RIGHT);
 
+        startGame.setAlignment(Pos.CENTER_RIGHT);
         this.setCenter(songPreview);
 
         this.setBottom(gameControls);

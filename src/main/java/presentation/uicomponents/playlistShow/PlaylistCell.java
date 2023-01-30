@@ -13,7 +13,7 @@ public class PlaylistCell extends ListCell<Playlist> {
         view = new HBox();
 
         playlistLabel = new Label();
-
+        playlistLabel.getStyleClass().add("list-cell_label");
         view.getChildren().add(playlistLabel);
     }
 
@@ -25,7 +25,7 @@ public class PlaylistCell extends ListCell<Playlist> {
 
         if(p != null){
             this.playlistLabel.setText(p.getPlaylistName());
-            this.view.setPrefWidth(30);
+            this.view.minWidth(1000);
             this.view.setPrefHeight(40);
             this.setGraphic(view);
         }else {

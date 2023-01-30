@@ -10,9 +10,10 @@ public class MainMenuController {
     GameApplication application;
 
     MainMenuView view;
-    private Button play;
-    private Button leaderboard;
-    private Button settings;
+    private final Button play;
+    private final Button leaderboard;
+    private final Button settings;
+    private Button quit;
 
     public MainMenuController(GameApplication application){
 
@@ -21,13 +22,18 @@ public class MainMenuController {
         play = view.play;
         leaderboard = view.leaderboard;
         settings = view.settings;
+        quit = view.quit;
 
         initialize();
     }
     public void initialize(){
+        quit.setOnAction(e -> {
+            System.exit(0);
+        });
+
         play.setOnAction(e -> {
             try {
-                application.switchScene("GameScreen");
+                application.switchScene("PlaylistScreen");
             } catch (FileNotFoundException ex) {
                 throw new RuntimeException(ex);
             }

@@ -41,7 +41,7 @@ public class SettingsView extends BorderPane {
         centerPane.setPadding(new Insets(25, 10, 10, 25));
         centerPane.setSpacing(10);
         centerPane.getStyleClass().addAll("center-container");
-
+        this.getStyleClass().add("container");
         this.setCenter(centerPane);
         toMainMenu.setAlignment(Pos.TOP_LEFT);
     }

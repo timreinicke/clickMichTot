@@ -1,5 +1,7 @@
 package presentation.scenes.gameScreen;
 
+import application.GameApplication;
+import business.MP3;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -7,6 +9,7 @@ import ddf.minim.AudioInput;
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
 import ddf.minim.analysis.BeatDetect;
+import exceptions.SongNotFoundException;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -35,13 +38,33 @@ public class GameScreenController extends Thread {
     private final StackPane buttonView;
     private Mp3File mp3File;
     private final String filename;
+    private int heroHealth = 10;
+    MP3 player;
+    GameApplication application;
+    int sensitivity;
     private final IntegerProperty highScore = new SimpleIntegerProperty(0);
 
-    public GameScreenController(String filename) throws FileNotFoundException {
+    public GameScreenController(String filename, MP3 player, GameApplication application) throws FileNotFoundException {
         this.view = new GameScreenView();
         this.hero_view = view.hero_view;
         this.filename = filename;
         buttonView = this.view.buttonView;
+        this.player = player;
+        this.application = application;
+
+        int x = 2;
+        switch (x) {
+            case 0:
+                sensitivity = 1000;
+                break;
+            case 1:
+                sensitivity = 800;
+                break;
+            case 2:
+                sensitivity = 400;
+                break;
+        }
+
 
         buttonSpawn().start();
         intialize();
@@ -76,16 +99,30 @@ public class GameScreenController extends Thread {
             Map<String, Button> buttonManager = new HashMap<>();
             Minim minim = new Minim(new MinimInput());
             AudioInput input = minim.getLineIn(Minim.STEREO, 1024);
-            AudioPlayer player;
+            AudioPlayer asyncPlayer;
             int i = 0, j = 0, x = 0, y = 0;
 
-            player = minim.loadFile(this.filename, 2048);
-            player.play();
-            player.setGain(-40);
+            asyncPlayer = minim.loadFile(this.filename, 2048);
+            asyncPlayer.play();
+            asyncPlayer.mute();
 
             BeatDetect beat = new BeatDetect(2048, 44100.0f);
             beat.detectMode(BeatDetect.FREQ_ENERGY);
-            beat.setSensitivity(800);
+            beat.setSensitivity(sensitivity);
+
+            Timer startPlayer = new Timer();
+
+            startPlayer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        player.play();
+                        player.volume(-30);
+                    } catch (IOException | SongNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }, 2500);
 
             Timer removeButtons = new Timer();
             removeButtons.schedule(new TimerTask() {
@@ -99,9 +136,18 @@ public class GameScreenController extends Thread {
 
 
             while (true) {
-                beat.detect(player.mix);
-
+                beat.detect(asyncPlayer.mix);
                 if (beat.isRange(12, 20, 4)) {
+                    if (heroHealth == 0) {
+                        try {
+                            application.switchScene("DefeatScreen", "DefeatScreen", String.valueOf(highScore.get()));
+                            Thread.currentThread().interrupt();
+                            player.pause();
+                        } catch (FileNotFoundException | InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
                     if (i > 0) {
                         i++;
 
@@ -141,9 +187,11 @@ public class GameScreenController extends Thread {
                         public void run() {
                             Platform.runLater(() -> {
                                 if (buttonView.getChildren().contains(buttonManager.get(id))) {
-                                    // buttonView.getChildren().remove(buttonManager.get(id));
                                     buttonManager.remove(id);
                                 }
+                                heroHealth--;
+                                view.health.setText("Health: " + heroHealth);
+
                                 tap.getStyleClass().add("inactive");
                                 timerCircle.getStyleClass().add("inactive");
                             });
@@ -180,7 +228,7 @@ public class GameScreenController extends Thread {
         translate.setNode(image);
         translate.setDuration(Duration.millis(100)); //@todo set duration to spawntime of buttons
         translate.setCycleCount(2);
-        translate.setByX(250);
+        translate.setByX(view.boss_view.getTranslateX());
         translate.setAutoReverse(true);
         translate.play();
 

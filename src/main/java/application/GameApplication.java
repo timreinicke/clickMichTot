@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import presentation.scenes.defeatScreen.DefeatScreenController;
 import presentation.scenes.gameScreen.GameScreenController;
 import presentation.scenes.leaderboard.LeaderboardController;
 import presentation.scenes.leaderboardEntry.LeaderboardEntryController;
@@ -14,6 +15,7 @@ import presentation.scenes.mainMenu.MainMenuController;
 import presentation.scenes.playlistMenu.PlaylistMenuController;
 import presentation.scenes.settings.SettingsController;
 import presentation.scenes.songMenu.SongMenuController;
+import presentation.scenes.victoryScreen.VictoryScreenController;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -27,10 +29,12 @@ public class GameApplication extends Application {
     MP3 player;
     PlaylistManager manager;
     Einstellungen settings;
+    Pane emptyPane;
 
     public void start(Stage primaryStage) {
 
         try {
+            emptyPane = new Pane();
             this.primaryStage = primaryStage;
             settings = new Einstellungen();
             scenes = new HashMap<String, Pane>();
@@ -45,16 +49,18 @@ public class GameApplication extends Application {
             SettingsController settings = new SettingsController(this, player, manager, this.settings);
 
             scenes.put("SonglistScreen", playlistMenu.getView());
-            scenes.put("GameScreen", playlistMenu.getView());
+            scenes.put("GameScreen", emptyPane);
             scenes.put("PlaylistScreen", playlistMenu.getView());
             scenes.put("Leaderboard", leaderboard.getView());
             scenes.put("LeaderboardADD", leaderboardADD.getView());
             scenes.put("MainMenu", mainMenu.getView());
             scenes.put("Settings", settings.getView());
+            scenes.put("DefeatScreen", emptyPane);
+            scenes.put("VictoryScreen", emptyPane);
 
-            Pane root = scenes.get("LeaderboardADD");
-
-            Scene scene = new Scene(root,1800,800);
+            Pane root = scenes.get("MainMenu");
+            primaryStage.setMaximized(true);
+            Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             mainScene = scene;
             primaryStage.setScene(mainScene);
@@ -66,18 +72,30 @@ public class GameApplication extends Application {
     }
 
     public void switchScene(String viewName, String... optPane) throws FileNotFoundException {
-
         if(mainScene != null) {
             Pane nextView = scenes.get(viewName);
             if(nextView != null) {
                 if(optPane.length == 0) {
                     mainScene.setRoot(nextView);
-                } else if(optPane[0].equals("SongList")) {
-                    SongMenuController songlistMenu = new SongMenuController(this, manager, player);
-                    mainScene.setRoot(songlistMenu.getView());
-                } else if(optPane[0].equals("GameScreen") && !Objects.equals(optPane[1], "")) {
-                    GameScreenController game = new GameScreenController(optPane[1]);
-                    mainScene.setRoot(game.getView());
+                } else {
+                    switch (optPane[0]) {
+                        case "SongList" -> {
+                            SongMenuController songlistMenu = new SongMenuController(this, manager, player);
+                            mainScene.setRoot(songlistMenu.getView());
+                        }
+                        case "GameScreen" -> {
+                            GameScreenController game = new GameScreenController(optPane[1], player, this);
+                            mainScene.setRoot(game.getView());
+                        }
+                        case "DefeatScreen" -> {
+                            DefeatScreenController defeat = new DefeatScreenController(Integer.parseInt(optPane[1]), this);
+                            mainScene.setRoot(defeat.getView());
+                        }
+                        case "VictoryScreen" -> {
+                            VictoryScreenController victory = new VictoryScreenController(Integer.parseInt(optPane[1]));
+                            mainScene.setRoot(victory.getView());
+                        }
+                    }
                 }
             }
         }
