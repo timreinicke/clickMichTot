@@ -2,6 +2,7 @@ package presentation.scenes.songMenu;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -31,8 +32,13 @@ public class SongMenuView extends BorderPane {
 
     String coverDir = "src/main/resources/application/music/album_artworks/";
     ImageViewPane coverViewPane;
+    StackPane gamePrev;
     public ImageView hero_view;
     public ImageView hero2_view;
+    public ImageView coverView;
+
+    public VBox femHero;
+    public VBox maleHero;
 
     Label songName;
     Label artist;
@@ -42,6 +48,7 @@ public class SongMenuView extends BorderPane {
     Button difficulty_medium;
     Button difficulty_hard;
     Button startGame;
+
     public SongMenuView() throws FileNotFoundException {
 
         settings = new HBox();
@@ -60,12 +67,22 @@ public class SongMenuView extends BorderPane {
 
         songSelection = new HBox();
 
-        coverPreview = new Pane();
+        gamePrev = new StackPane();
+
+        coverView = new ImageView();
+        coverView.setPreserveRatio(true);
+
         hero_view = new ImageView();
         hero2_view = new ImageView();
         hero_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_male.png")));
         hero2_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_female.png")));
+        femHero = new VBox();
+        femHero.getChildren().add(hero2_view);
+        maleHero = new VBox();
+        maleHero.getChildren().add(hero_view);
 
+        coverView.fitHeightProperty().bind(gamePrev.heightProperty());
+        coverView.fitWidthProperty().bind(gamePrev.heightProperty());
 
         songInformation = new VBox();
         songName = new Label();
@@ -87,9 +104,10 @@ public class SongMenuView extends BorderPane {
         settings.setSpacing(20);
         settings.setPadding(new Insets(20));
         settings.getChildren().addAll(backButton, viewName, settingsButton);
-        coverPreview.getChildren().addAll(hero_view, hero2_view);
+        gamePrev.getChildren().addAll(coverView, femHero, maleHero);
+        //coverPreview.getChildren().addAll(hero_view, hero2_view);
         songInformation.getChildren().addAll(songName, artist, duration);
-        songPreview.getChildren().addAll(coverPreview, songInformation);
+        songPreview.getChildren().addAll(gamePrev, songInformation);
         difficultyControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard);
         gameControls.getChildren().addAll(difficultyControls, startGame);
 

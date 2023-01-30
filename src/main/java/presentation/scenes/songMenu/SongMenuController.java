@@ -3,6 +3,7 @@ package presentation.scenes.songMenu;
 import application.GameApplication;
 import business.MP3;
 import business.PlaylistManager;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,6 +34,7 @@ public class SongMenuController {
         protected Button backButton;
 
         protected Button settings;
+        protected String coverDir = "src/main/resources/application/music/album_artworks/";
 
         public SongMenuController(GameApplication application, PlaylistManager manager, MP3 player) throws FileNotFoundException {
 
@@ -49,6 +51,9 @@ public class SongMenuController {
             backButton = view.backButton;
             settings = view.settingsButton;
             startGame = view.startGame;
+
+            view.coverView.setImage(new Image(new FileInputStream("src/main/resources/application/images/game_arena.png")));
+
 
             songContent = new SonglistController(manager,application, player);
             view.songSelection.getChildren().add(songContent.getSongView());
@@ -90,5 +95,6 @@ public class SongMenuController {
         public static SongMenuView getView(){
             return view;
         }
+
 }
 
