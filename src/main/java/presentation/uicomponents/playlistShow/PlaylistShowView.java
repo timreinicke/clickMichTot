@@ -16,6 +16,7 @@ public class PlaylistShowView extends BorderPane {
     VBox playlistContainer;
     public PlaylistShowView(){
         headerLabel = new Label("All Playlists, you may drop files.m3u to add more");
+        this.getStyleClass().add("list-cell_label");
         this.setTop(headerLabel);
         headerLabel.getStyleClass().add("title");
 
@@ -31,6 +32,13 @@ public class PlaylistShowView extends BorderPane {
         BorderPane.setAlignment(headerLabel, Pos.CENTER);
         BorderPane.setMargin(headerLabel, new Insets(10));
 
+<<<<<<< HEAD
 
+=======
+        BorderPane.setAlignment(playlistListView, Pos.CENTER);
+        BorderPane.setMargin(playlistListView, new Insets(10));
+        playlistListView.setPrefWidth(1200);
+        playlistListView.setPrefHeight(500);
+>>>>>>> 12abd768a6fc7eb3d5a6ef2978ca69614f9c58fc
     }
 }
