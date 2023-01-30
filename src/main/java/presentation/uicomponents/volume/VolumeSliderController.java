@@ -14,11 +14,10 @@ public class VolumeSliderController {
     MP3 player;
     PlaylistManager manager;
 
-    public VolumeSliderController(MP3 player, PlaylistManager manager){
+    public VolumeSliderController(MP3 player){
         view = new VolumeSlider();
         this.volumeSlider = view.volumeSlider;
         this.player = player;
-        this.manager = manager;
         initialize();
     }
     public void volume (){
@@ -28,11 +27,7 @@ public class VolumeSliderController {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number nV) {
                 float volume;
                 volume = (float) nV.doubleValue();
-
-                if(player.getAudioPlayer() != null) {
-                    player.volume(volume);
-                }
-
+                player.setVolumeProperty(volume);
             }
         });
     }

@@ -17,10 +17,12 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import presentation.uicomponents.volume.VolumeSliderController;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,7 +44,10 @@ public class GameScreenController extends Thread {
     MP3 player;
     GameApplication application;
     int sensitivity;
+    boolean inSettings = false;
     private final IntegerProperty highScore = new SimpleIntegerProperty(0);
+
+    VolumeSliderController volume;
 
     public GameScreenController(String filename, MP3 player, GameApplication application) throws FileNotFoundException {
         this.view = new GameScreenView();
@@ -51,6 +56,9 @@ public class GameScreenController extends Thread {
         buttonView = view.buttonView;
         this.player = player;
         this.application = application;
+        volume = new VolumeSliderController(player);
+
+        view.groupSettings.getChildren().add(volume.getView());
 
         int f = 1;
         switch (f) {
@@ -117,6 +125,7 @@ public class GameScreenController extends Thread {
                 public void run() {
                     try {
                         player.play();
+                        player.volume(player.getVolumeProperty());
                         player.volume(-30);
                     } catch (IOException | SongNotFoundException e) {
                         throw new RuntimeException(e);
@@ -256,6 +265,29 @@ public class GameScreenController extends Thread {
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+            }
+        });
+
+        view.toMainMenu.setOnAction(e->{
+            try {
+                application.switchScene("MainMenu");
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        view.quitGame.setOnAction(e->{
+            System.exit(0);
+        });
+
+        view.setOnKeyPressed(e->{
+            if(e.getCode() == KeyCode.ESCAPE && !inSettings){
+                inSettings = true;
+                view.getChildren().addAll(view.parentSettings);
+            }else if(e.getCode() == KeyCode.ESCAPE){
+                player.volume(player.getVolumeProperty());
+                inSettings = false;
+                view.getChildren().removeAll(view.parentSettings);
             }
         });
     }

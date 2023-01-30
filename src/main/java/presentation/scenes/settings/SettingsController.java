@@ -38,7 +38,7 @@ public class SettingsController {
         this.toMainMenu = view.toMainMenu;
         this.settings = settings;
 
-        volumeBar =  new VolumeSliderController(player, manager);
+        volumeBar =  new VolumeSliderController(player);
         view.settingsContainer.getChildren().add(volumeBar.getView());
         view.settingsContainer.getStyleClass().add("center");
         view.centerPane.getStyleClass().addAll("center");

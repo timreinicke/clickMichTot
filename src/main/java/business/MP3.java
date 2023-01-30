@@ -4,6 +4,7 @@ import application.GameApplication;
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import exceptions.SongNotFoundException;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,13 +30,15 @@ public class MP3 extends Thread {
     private Thread timerThread;
     private Thread playThread;
 
+    SimpleFloatProperty volumeProperty;
+
     public MP3(GameApplication application) throws IOException {
         minim = new SimpleMinim();
         currTime = new SimpleIntegerProperty(0);
         manager = application.getManager();
         songName = new SimpleStringProperty();
         aktSong = new SimpleObjectProperty<>();
-
+        volumeProperty = new SimpleFloatProperty(0);
         aktSong.addListener(e -> SongMenuController.reload());
     }
     public void playSong() throws SongNotFoundException, IOException {
@@ -104,7 +107,7 @@ public class MP3 extends Thread {
 
     public void volume(float value) {
         //audioPlayer.setGain(value);
-        audioPlayer.setVolume(value);
+        audioPlayer.setGain(value);
     }
 
     public SimpleIntegerProperty currTimeProperty() {
@@ -127,6 +130,14 @@ public class MP3 extends Thread {
     }
     public SimpleAudioPlayer getAudioPlayer(){
         return audioPlayer;
+    }
+
+    public void setVolumeProperty(float value){
+        volumeProperty.set(value);
+    }
+
+    public float getVolumeProperty(){
+        return volumeProperty.get();
     }
 }
 

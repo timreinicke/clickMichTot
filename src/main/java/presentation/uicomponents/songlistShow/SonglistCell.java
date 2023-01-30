@@ -11,19 +11,14 @@ public class SonglistCell extends ListCell<Song> {
     private Pane view;
     private Label songLabel;
 
-    private Label laengeSong;
-
     public SonglistCell() {
         view = new HBox();
 
         songLabel = new Label();
         songLabel.getStyleClass().add("list-cell_label");
 
-        laengeSong = new Label();
-        laengeSong.getStyleClass().add("list-cell_label");
-
         this.getStyleClass().add("list-cell");
-        view.getChildren().addAll(songLabel, laengeSong);
+        view.getChildren().addAll(songLabel);
     }
     protected void updateItem(Song s, boolean empty){
         super.updateItem(s, empty);
@@ -33,7 +28,6 @@ public class SonglistCell extends ListCell<Song> {
 
         if(s != null){
             this.songLabel.setText(s.getTitle());
-            this.laengeSong.setText(Integer.toString(s.getDuration()));
             this.view.setPrefWidth(30);
             this.view.setPrefHeight(40);
             this.setGraphic(view);

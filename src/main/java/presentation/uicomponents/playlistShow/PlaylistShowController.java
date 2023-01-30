@@ -72,11 +72,12 @@ public class PlaylistShowController{
         });
 
         ObservableList<Playlist> playlistContent = FXCollections.observableArrayList();
-        playlistContent.clear();
+        
         playlistContent.addAll(allPlaylists);
 
         allPlaylistView.setItems(playlistContent);
         allPlaylistView.setEditable(true);
+
 
         playlistContent.addListener((ListChangeListener<Playlist>) change -> {
             while(change.next()){
