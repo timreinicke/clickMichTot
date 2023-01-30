@@ -54,13 +54,7 @@ public class PlaylistShowController{
 
             try {
                 manager.setPlaylist(allPlaylistView.getSelectionModel().getSelectedItem());
-            } catch (PlaylistNotFoundException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (InvalidDataException ex) {
-                throw new RuntimeException(ex);
-            } catch (UnsupportedTagException ex) {
+            } catch (PlaylistNotFoundException | IOException | InvalidDataException | UnsupportedTagException ex) {
                 throw new RuntimeException(ex);
             }
 

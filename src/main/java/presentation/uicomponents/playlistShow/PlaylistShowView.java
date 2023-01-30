@@ -13,6 +13,7 @@ public class PlaylistShowView extends BorderPane {
     ListView<Playlist> playlistListView;
     public PlaylistShowView(){
         headerLabel = new Label("All Playlists, you may drop files.m3u to add more");
+        this.getStyleClass().add("list-cell_label");
         this.setTop(headerLabel);
 
         playlistListView = new ListView<>();
@@ -23,5 +24,7 @@ public class PlaylistShowView extends BorderPane {
 
         BorderPane.setAlignment(playlistListView, Pos.CENTER);
         BorderPane.setMargin(playlistListView, new Insets(10));
+        playlistListView.setPrefWidth(1200);
+        playlistListView.setPrefHeight(500);
     }
 }

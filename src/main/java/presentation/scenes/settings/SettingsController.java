@@ -54,11 +54,7 @@ public class SettingsController {
                     manager.getPlaylistManager();
                     manager.getPlaylists();
                     application.reloadPlaylists(); // setzt playlist noch nicht richtig
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (InvalidDataException e) {
-                    throw new RuntimeException(e);
-                } catch (UnsupportedTagException e) {
+                } catch (IOException | InvalidDataException | UnsupportedTagException e) {
                     throw new RuntimeException(e);
                 }
             }else {

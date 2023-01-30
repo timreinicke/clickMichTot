@@ -8,7 +8,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class DefeatScreenView extends Pane {
-
     Text headline;
     Text highScore;
     Button mainMenu;
@@ -17,14 +16,17 @@ public class DefeatScreenView extends Pane {
     public DefeatScreenView() {
         headline = new Text("Failure!");
         this.getStyleClass().addAll("title", "center");
+
         highScore = new Text();
+
         mainMenu = new Button("Main Menu");
         mainMenu.getStyleClass().add("menu-button");
+
         contentContainer = new VBox();
         StackPane.setAlignment(contentContainer, Pos.CENTER);
         contentContainer.getChildren().addAll(headline, highScore, mainMenu);
+
         this.getStyleClass().add("container");
         this.getChildren().add(contentContainer);
-
     }
 }

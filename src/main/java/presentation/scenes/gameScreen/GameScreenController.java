@@ -15,6 +15,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -41,10 +42,12 @@ public class GameScreenController extends Thread {
     private Mp3File mp3File;
     private final String filename;
     private int heroHealth = 10;
+    AudioPlayer asyncPlayer;
+    Button pause;
     MP3 player;
     GameApplication application;
     int sensitivity;
-    boolean inSettings = false;
+    private boolean isPaused = false;
     private final IntegerProperty highScore = new SimpleIntegerProperty(0);
 
     VolumeSliderController volume;
@@ -69,7 +72,7 @@ public class GameScreenController extends Thread {
                 sensitivity = 800;
                 break;
             case 2:
-                sensitivity = 10;
+                sensitivity = 500;
                 break;
         }
 
@@ -107,7 +110,7 @@ public class GameScreenController extends Thread {
             Map<String, Button> buttonManager = new HashMap<>();
             Minim minim = new Minim(new MinimInput());
             AudioInput input = minim.getLineIn(Minim.STEREO, 1024);
-            AudioPlayer asyncPlayer;
+
             int i = 0, j = 0, x = 0, y = 0;
 
             asyncPlayer = minim.loadFile(this.filename, 2048);
@@ -126,7 +129,6 @@ public class GameScreenController extends Thread {
                     try {
                         player.play();
                         player.volume(player.getVolumeProperty());
-                        player.volume(-30);
                     } catch (IOException | SongNotFoundException e) {
                         throw new RuntimeException(e);
                     }
@@ -146,7 +148,7 @@ public class GameScreenController extends Thread {
 
             while (true) {
                 beat.detect(asyncPlayer.mix);
-                if (beat.isRange(12, 20, 4)) {
+                if (beat.isRange(12, 25, 4)) {
 
                     if (i > 0) {
                         i++;
@@ -189,7 +191,7 @@ public class GameScreenController extends Thread {
                                 if (buttonView.getChildren().contains(buttonManager.get(id))) {
                                     buttonManager.remove(id);
                                 }
-                                if(!tap.getStyleClass().contains("inactive")){
+                                if(!tap.getStyleClass().contains("inactive") && !isPaused){
                                     heroHealth--;
                                 }
 
@@ -228,7 +230,7 @@ public class GameScreenController extends Thread {
     }
 
     public void circleTimerTransition(Circle circle) {
-        ScaleTransition sc = new ScaleTransition(Duration.seconds(3), circle);
+        ScaleTransition sc = new ScaleTransition(Duration.millis(2500), circle);
         sc.setToX(0.66);
         sc.setToY(0.66);
         sc.play();
@@ -238,7 +240,7 @@ public class GameScreenController extends Thread {
         TranslateTransition translate = new TranslateTransition();
 
         translate.setNode(image);
-        translate.setDuration(Duration.millis(100)); //@todo set duration to spawntime of buttons
+        translate.setDuration(Duration.millis(200)); //@todo set duration to spawntime of buttons
         translate.setCycleCount(2);
         translate.setByX(1200);
         translate.setAutoReverse(true);
@@ -251,13 +253,45 @@ public class GameScreenController extends Thread {
     }
 
     public void intialize() {
+        view.setOnKeyPressed(e -> {
+            if(e.getCode() == KeyCode.ESCAPE && !isPaused) {
+                
+                for (Node n : view.buttonView.getChildren()) {
+                    n.getStyleClass().add("inactive");
+                }
+                
+                view.getChildren().addAll(view.parentSettings);
+                System.out.println("PAUSE");
+                try {
+                    player.pause();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+                buttonSpawn().interrupt();
+                asyncPlayer.pause();
+                isPaused = true;
+            } else {
+                view.getChildren().removeAll(view.parentSettings);
+                System.out.println("Weiter");
+                Timer startPlayer = new Timer();
+                startPlayer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        player.playAtTime();
+                        player.volume(player.getVolumeProperty());
+                    }
+                }, 2500);
+
+                asyncPlayer.play(player.currTimeProperty().get());
+                isPaused = false;
+            }
+        });
+
         this.highScore.addListener(((observableValue, number, t1) -> {
             view.highScore.setText("Highscore: " + t1);
         }));
 
         player.currTimeProperty().addListener((observableValue, number, t1) -> {
-            System.out.println(t1);
-            System.out.println(player.getAktSong().getDuration());
             if (player.getAktSong().getDuration() * 1000 == (int) t1) {
 
                 try {
@@ -278,17 +312,6 @@ public class GameScreenController extends Thread {
 
         view.quitGame.setOnAction(e->{
             System.exit(0);
-        });
-
-        view.setOnKeyPressed(e->{
-            if(e.getCode() == KeyCode.ESCAPE && !inSettings){
-                inSettings = true;
-                view.getChildren().addAll(view.parentSettings);
-            }else if(e.getCode() == KeyCode.ESCAPE){
-                player.volume(player.getVolumeProperty());
-                inSettings = false;
-                view.getChildren().removeAll(view.parentSettings);
-            }
         });
     }
 
