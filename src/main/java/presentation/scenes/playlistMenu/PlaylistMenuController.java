@@ -106,9 +106,9 @@ public class PlaylistMenuController {
     }
 
     private void reload(){
-        view.getChildren().clear();
+        view.list.getChildren().clear();
         playlistView = new PlaylistShowController(manager, application);
-        view.getChildren().add(playlistView.getPlaylistWindow());
+        view.list.getChildren().add(playlistView.getPlaylistWindow());
     }
     public PlaylistMenuView getView(){return view;}
 }

@@ -7,22 +7,26 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class SonglistShowView extends BorderPane {
 
     Label headerLabel;
     ListView<Song> allSongs;
+    VBox songContainer;
     public SonglistShowView(){
         headerLabel = new Label("All Songs, so much to choose from!");
         this.setTop(headerLabel);
+        songContainer = new VBox();
 
         allSongs = new ListView<>();
-        this.setCenter(allSongs);
+        songContainer.getChildren().add(allSongs);
+        this.setCenter(songContainer);
 
         BorderPane.setAlignment(headerLabel, Pos.CENTER);
         BorderPane.setMargin(headerLabel, new Insets(10));
 
-        BorderPane.setAlignment(allSongs, Pos.CENTER);
-        BorderPane.setMargin(allSongs, new Insets(10));
+        BorderPane.setAlignment(songContainer, Pos.CENTER);
+        BorderPane.setMargin(songContainer, new Insets(10));
     }
 }

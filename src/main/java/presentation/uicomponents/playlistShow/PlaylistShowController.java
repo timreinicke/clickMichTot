@@ -15,6 +15,7 @@ import presentation.uicomponents.songlistShow.SonglistController;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 
 public class PlaylistShowController{
@@ -45,9 +46,9 @@ public class PlaylistShowController{
 
         allPlaylists = manager.getPlaylistManager();
 
-        allPlaylistView.setCellFactory(
+        /*allPlaylistView.setCellFactory(
                 p -> new PlaylistCell()
-        );
+        );*/
 
         allPlaylistView.setOnMouseClicked(e -> {
             System.out.println(allPlaylistView.getSelectionModel().getSelectedItems());
@@ -72,12 +73,20 @@ public class PlaylistShowController{
         });
 
         ObservableList<Playlist> playlistContent = FXCollections.observableArrayList();
-        
+        playlistContent.clear();
         playlistContent.addAll(allPlaylists);
+
+        Predicate<Playlist> filter = playlist -> playlist.getSongs().size()>0;
+
+        playlistContent = playlistContent.filtered(filter);
+
+        allPlaylistView.setPrefHeight(playlistContent.size()*40);
 
         allPlaylistView.setItems(playlistContent);
         allPlaylistView.setEditable(true);
-
+        allPlaylistView.setCellFactory(
+                p -> new PlaylistCell()
+        );
 
         playlistContent.addListener((ListChangeListener<Playlist>) change -> {
             while(change.next()){

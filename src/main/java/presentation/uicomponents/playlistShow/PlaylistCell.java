@@ -20,16 +20,15 @@ public class PlaylistCell extends ListCell<Playlist> {
     protected void updateItem(Playlist p, boolean empty){
         super.updateItem(p, empty);
 
-        setText(null);
-        setGraphic(null);
-
-        if(p != null){
+        if(empty){
+            setGraphic(null);
+            return;
+        }
+        else{
             this.playlistLabel.setText(p.getPlaylistName());
             this.view.minWidth(1000);
             this.view.setPrefHeight(40);
             this.setGraphic(view);
-        }else {
-            setGraphic(null);
         }
     }
 }

@@ -48,16 +48,6 @@ public class SonglistController {
 
         allSongsView.setOnMouseClicked(e -> {
             player.setAktSong(allSongsView.getSelectionModel().getSelectedItem());
-         /*   try {
-                application.switchScene("GameApplication", "GameScreen", allSongsView.getSelectionModel().getSelectedItem().getFilename());
-=======
-            try {
-                application.switchScene("GameScreen", "GameScreen", allSongsView.getSelectionModel().getSelectedItem().getFilename());
->>>>>>> 6e7c059f4cd9f7ef50d4cd8e718c9ba57486bea3
-            } catch (FileNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
-            */
         });
 
         ObservableList<Song> songsContent = FXCollections.observableArrayList();
@@ -66,6 +56,7 @@ public class SonglistController {
 
         allSongsView.setItems(songsContent);
         allSongsView.setEditable(true);
+        allSongsView.setPrefHeight(allSongs.size()*70);
 
         songsContent.addListener((ListChangeListener<Song>) change -> {
             while(change.next()){
