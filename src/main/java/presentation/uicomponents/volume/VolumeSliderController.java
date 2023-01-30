@@ -29,7 +29,7 @@ public class VolumeSliderController {
                 float volume;
                 volume = (float) nV.doubleValue();
 
-                if(player != null) {
+                if(player.getAudioPlayer() != null) {
                     player.volume(volume);
                 }
 

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import presentation.uicomponents.volume.VolumeSliderController;
 
 
 public class SettingsView extends BorderPane {
@@ -15,14 +16,20 @@ public class SettingsView extends BorderPane {
     Button submitButton;
     Label title;
     Button toMainMenu;
-    Button settings;
+    VBox settingsContainer;
+    Label audioInput;
+
+    VBox centerPane;
 
     public SettingsView(){
+
         title = new Label("Einstellungen");
-        title.getStyleClass().addAll("title", "center");
+        title.getStyleClass().addAll("title");
 
         toMainMenu = new Button("Main Menu");
-        VBox centerPane = new VBox();
+        centerPane = new VBox();
+
+        settingsContainer = new VBox();
 
 
         HBox inputContainer = new HBox();
@@ -37,12 +44,21 @@ public class SettingsView extends BorderPane {
 
         inputContainer.getChildren().addAll(dirLabel, dirField, submitButton);
         inputContainer.setSpacing(10);
-        centerPane.getChildren().addAll(title, toMainMenu, inputContainer);
+        inputContainer.getStyleClass().addAll("center");
+
+        audioInput = new Label("Set Volume:");
+        audioInput.getStyleClass().addAll("settings-label", "settings");
+
+        settingsContainer.getChildren().addAll(inputContainer, audioInput);
+        settingsContainer.setSpacing(10);
+
+        centerPane.getChildren().addAll(title, toMainMenu, settingsContainer);
         centerPane.setPadding(new Insets(25, 10, 10, 25));
         centerPane.setSpacing(10);
-        centerPane.getStyleClass().addAll("center-container");
+
         this.getStyleClass().add("container");
         this.setCenter(centerPane);
-        toMainMenu.setAlignment(Pos.TOP_LEFT);
+
+        toMainMenu.setAlignment(Pos.TOP_RIGHT);
     }
 }

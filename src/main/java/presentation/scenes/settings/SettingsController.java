@@ -6,9 +6,11 @@ import business.MP3;
 import business.PlaylistManager;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import presentation.uicomponents.volume.VolumeSliderController;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +26,7 @@ public class SettingsController {
     GameApplication application;
     Button toMainMenu;
     Einstellungen settings;
+    VolumeSliderController volumeBar;
 
     public SettingsController(GameApplication application, MP3 player, PlaylistManager manager, Einstellungen settings){
         view = new SettingsView();
@@ -34,6 +37,11 @@ public class SettingsController {
         this.application = application;
         this.toMainMenu = view.toMainMenu;
         this.settings = settings;
+
+        volumeBar =  new VolumeSliderController(player, manager);
+        view.settingsContainer.getChildren().add(volumeBar.getView());
+        view.settingsContainer.getStyleClass().add("center");
+        view.centerPane.getStyleClass().addAll("center");
 
         initialize();
     }

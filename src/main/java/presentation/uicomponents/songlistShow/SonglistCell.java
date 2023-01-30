@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 public class SonglistCell extends ListCell<Song> {
     private Pane view;
     private Label songLabel;
-    private Label artistLabel;
 
     private Label laengeSong;
 
@@ -20,14 +19,11 @@ public class SonglistCell extends ListCell<Song> {
         songLabel = new Label();
         songLabel.getStyleClass().add("list-cell_label");
 
-        artistLabel = new Label();
-        artistLabel.getStyleClass().add("list-cell_label");
-
         laengeSong = new Label();
         laengeSong.getStyleClass().add("list-cell_label");
 
         this.getStyleClass().add("list-cell");
-        view.getChildren().addAll(songLabel, artistLabel, laengeSong);
+        view.getChildren().addAll(songLabel, laengeSong);
     }
     protected void updateItem(Song s, boolean empty){
         super.updateItem(s, empty);
@@ -37,7 +33,6 @@ public class SonglistCell extends ListCell<Song> {
 
         if(s != null){
             this.songLabel.setText(s.getTitle());
-            this.artistLabel.setText(s.getArtist());
             this.laengeSong.setText(Integer.toString(s.getDuration()));
             this.view.setPrefWidth(30);
             this.view.setPrefHeight(40);

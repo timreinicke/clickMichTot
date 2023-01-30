@@ -83,9 +83,9 @@ public class SongMenuController {
 
         }
         public static void reload() {
-            songName.setText(player.getAktSong().getTitle());
-            artist.setText(player.getAktSong().getArtist());
-            duration.setText(Integer.toString(player.getAktSong().getDuration()));
+            songName.setText("Title : " + player.getAktSong().getTitle());
+            artist.setText("Artist : " + player.getAktSong().getArtist());
+            duration.setText("Duration : " + player.getAktSong().getDuration() / 60 + ":" + player.getAktSong().getDuration() % 60 + " minutes");
         }
         public static SongMenuView getView(){
             return view;

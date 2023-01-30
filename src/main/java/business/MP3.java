@@ -112,7 +112,8 @@ public class MP3 extends Thread {
     }
 
     public void volume(float value) {
-        audioPlayer.setGain(value);
+        //audioPlayer.setGain(value);
+        audioPlayer.setVolume(value);
     }
 
     public SimpleIntegerProperty currTimeProperty() {
@@ -133,5 +134,9 @@ public class MP3 extends Thread {
     public void setAktSong(Song s){
         this.aktSong.setValue(s);
     }
+    public SimpleAudioPlayer getAudioPlayer(){
+        return audioPlayer;
+    }
 }
+
 
