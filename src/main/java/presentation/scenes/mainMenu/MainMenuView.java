@@ -26,7 +26,7 @@ public class MainMenuView extends BorderPane {
         settings = new Button("SETTINGS");
         settings.getStyleClass().add("menu-button");
 
-        quit = new Button("QUIT");
+        quit = new Button("QUIT GAME");
         quit.getStyleClass().add("menu-button");
 
         settingsBox = new VBox();

@@ -1,14 +1,12 @@
 package presentation.scenes.songMenu;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import presentation.uicomponents.ImageViewPane;
 
 import java.io.FileInputStream;
@@ -19,7 +17,7 @@ public class SongMenuView extends BorderPane {
 
     HBox settings;
     HBox songSelection;
-    StackPane coverPreview;
+    Pane coverPreview;
     VBox songInformation;
 
     HBox songPreview;
@@ -47,20 +45,26 @@ public class SongMenuView extends BorderPane {
     public SongMenuView() throws FileNotFoundException {
 
         settings = new HBox();
+
         difficultyControls = new HBox();
         backButton = new Button("Back to view all Playlists");
-        settingsButton = new Button("settings");
-        backButton.getStyleClass().addAll("backButton", "icon-button");
-        settingsButton.getStyleClass().add("icon-button");
+        backButton.getStyleClass().addAll("return-button");
+
+        settingsButton = new Button("SETTINGS");
+        settingsButton.getStyleClass().add("return-button");
+        settingsButton.setAlignment(Pos.CENTER_RIGHT);
+
+
         viewName = new Label("Song Selection");
+        viewName.getStyleClass().addAll("title", "container");
 
         songSelection = new HBox();
 
-        coverPreview = new StackPane();
+        coverPreview = new Pane();
         hero_view = new ImageView();
         hero2_view = new ImageView();
         hero_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_male.png")));
-        hero2_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/boss1.png")));
+        hero2_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_female.png")));
 
 
         songInformation = new VBox();
@@ -80,7 +84,9 @@ public class SongMenuView extends BorderPane {
         difficulty_hard.getStyleClass().add("round-button");
         startGame.getStyleClass().add("round-button");
 
-        settings.getChildren().addAll(backButton, settingsButton,viewName);
+        settings.setSpacing(20);
+        settings.setPadding(new Insets(20));
+        settings.getChildren().addAll(backButton, viewName, settingsButton);
         coverPreview.getChildren().addAll(hero_view, hero2_view);
         songInformation.getChildren().addAll(songName, artist, duration);
         songPreview.getChildren().addAll(coverPreview, songInformation);
@@ -97,7 +103,8 @@ public class SongMenuView extends BorderPane {
 
         startGame.setAlignment(Pos.CENTER_RIGHT);
         this.setCenter(songPreview);
-
         this.setBottom(gameControls);
+
+        this.getStyleClass().add("container");
     }
 }

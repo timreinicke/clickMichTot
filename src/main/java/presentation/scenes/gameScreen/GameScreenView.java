@@ -22,7 +22,6 @@ public class GameScreenView extends StackPane {
     public StackPane buttonView;
     public Text highScore;
     public Text health;
-
     public Rectangle transparentPane;
 
     public StackPane parentSettings;
@@ -34,17 +33,18 @@ public class GameScreenView extends StackPane {
     public GameScreenView() throws FileNotFoundException {
 
         parentSettings = new StackPane();
+        parentSettings.getStyleClass().add("settings_pause");
         groupSettings = new VBox();
         groupSettings.setPrefHeight(this.getHeight()/2);
         groupSettings.setPrefWidth(this.getWidth()/2);
 
         transparentPane = new Rectangle(this.getWidth(),this.getHeight(), Color.rgb(0, 0, 0, 0.5));
 
-        toMainMenu = new Button("Main Menu");
-        toMainMenu.getStyleClass().add("round-button");
+        toMainMenu = new Button("MAIN MENU");
+        toMainMenu.getStyleClass().add("menu-button");
 
         quitGame = new Button("QUIT GAME");
-        quitGame.getStyleClass().add("round-button");
+        quitGame.getStyleClass().add("menu-button");
 
         groupSettings.getChildren().addAll(toMainMenu, quitGame);
         parentSettings.getChildren().addAll(transparentPane, groupSettings);
@@ -53,9 +53,6 @@ public class GameScreenView extends StackPane {
         groupSettings.setPadding(new Insets(10));
         groupSettings.setAlignment(Pos.CENTER);
         parentSettings.setAlignment(Pos.CENTER);
-
-        //gameSettings = new Rectangle(this.getWidth()/2,this.getHeight()/2, Color.rgb(255,255,255));
-
 
         highScore = new Text("Highscore: 0");
         highScore.getStyleClass().add("highscore");
