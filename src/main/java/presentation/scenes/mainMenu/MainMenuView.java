@@ -15,7 +15,7 @@ public class MainMenuView extends BorderPane {
     protected VBox settingsBox;
 
     public MainMenuView() {
-        viewName = new Label("Main Menu");
+        viewName = new Label("Click mich tot");
         viewName.getStyleClass().addAll("title", "center");
         BorderPane.setAlignment(viewName, Pos.CENTER);
 

@@ -48,12 +48,12 @@ public class GameScreenController extends Thread {
         this.view = new GameScreenView();
         this.hero_view = view.hero_view;
         this.filename = filename;
-        buttonView = this.view.buttonView;
+        buttonView = view.buttonView;
         this.player = player;
         this.application = application;
 
-        int x = 2;
-        switch (x) {
+        int f = 1;
+        switch (f) {
             case 0:
                 sensitivity = 1000;
                 break;
@@ -61,7 +61,7 @@ public class GameScreenController extends Thread {
                 sensitivity = 800;
                 break;
             case 2:
-                sensitivity = 400;
+                sensitivity = 10;
                 break;
         }
 
@@ -138,15 +138,6 @@ public class GameScreenController extends Thread {
             while (true) {
                 beat.detect(asyncPlayer.mix);
                 if (beat.isRange(12, 20, 4)) {
-                    if (heroHealth == 0) {
-                        try {
-                            application.switchScene("DefeatScreen", "DefeatScreen", String.valueOf(highScore.get()));
-                            Thread.currentThread().interrupt();
-                            player.pause();
-                        } catch (FileNotFoundException | InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
 
                     if (i > 0) {
                         i++;
@@ -189,9 +180,21 @@ public class GameScreenController extends Thread {
                                 if (buttonView.getChildren().contains(buttonManager.get(id))) {
                                     buttonManager.remove(id);
                                 }
-                                heroHealth--;
-                                view.health.setText("Health: " + heroHealth);
+                                if(!tap.getStyleClass().contains("inactive")){
+                                    heroHealth--;
+                                }
 
+                                if (heroHealth == 0) {
+                                    try {
+                                        application.switchScene("DefeatScreen", "DefeatScreen", String.valueOf(highScore.get()));
+                                        Thread.currentThread().interrupt();
+                                        player.pause();
+                                    } catch (FileNotFoundException | InterruptedException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+
+                                view.health.setText("Health: " + heroHealth);
                                 tap.getStyleClass().add("inactive");
                                 timerCircle.getStyleClass().add("inactive");
                             });
@@ -228,7 +231,7 @@ public class GameScreenController extends Thread {
         translate.setNode(image);
         translate.setDuration(Duration.millis(100)); //@todo set duration to spawntime of buttons
         translate.setCycleCount(2);
-        translate.setByX(view.boss_view.getTranslateX());
+        translate.setByX(1200);
         translate.setAutoReverse(true);
         translate.play();
 
@@ -242,6 +245,19 @@ public class GameScreenController extends Thread {
         this.highScore.addListener(((observableValue, number, t1) -> {
             view.highScore.setText("Highscore: " + t1);
         }));
+
+        player.currTimeProperty().addListener((observableValue, number, t1) -> {
+            System.out.println(t1);
+            System.out.println(player.getAktSong().getDuration());
+            if (player.getAktSong().getDuration() * 1000 == (int) t1) {
+
+                try {
+                    application.switchScene("VictoryScreen", "VictoryScreen", String.valueOf(this.highScore.get()));
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     public GameScreenView getView() {

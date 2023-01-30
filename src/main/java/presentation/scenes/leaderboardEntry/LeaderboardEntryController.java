@@ -32,8 +32,6 @@ public class LeaderboardEntryController {
                         AlertBox.display("ERROR!", "Your Name already exists with the same score!");
                     }
 
-                } catch (FileNotFoundException ex) {
-                    throw new RuntimeException(ex);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -17,7 +17,7 @@ public class VolumeSlider extends HBox {
         volumeSlider = new Slider(MINVALUE, MAXVALUE, STARTVALUE);
         volumeButton = new Button();
         volumeButton.getStyleClass().addAll("icon-button", "volumeButton");
-        volumeSlider.getStyleClass().add("volumeSlider");
+        this.getStyleClass().addAll("center");
         this.getChildren().addAll(volumeButton, volumeSlider);
     }
 

@@ -1,12 +1,6 @@
 package business;
 
 import application.GameApplication;
-import application.GameApplication;
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.UnsupportedTagException;
-import ddf.minim.AudioInput;
-import ddf.minim.Minim;
-import ddf.minim.analysis.BeatDetect;
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import exceptions.SongNotFoundException;
@@ -16,9 +10,6 @@ import javafx.beans.property.SimpleStringProperty;
 import presentation.scenes.songMenu.SongMenuController;
 
 import java.io.IOException;
-import java.net.http.WebSocket;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * Thread und Playerverwaltung, um Einstellungen auf Musik vorzunehmen (skip, play, pause..)

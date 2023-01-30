@@ -31,7 +31,7 @@ public class GameScreenView extends StackPane {
         StackPane.setAlignment(hero_view, Pos.CENTER_LEFT);
 
         boss_view = new ImageView();
-        boss_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/boss1.png")));
+        boss_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/boss.png")));
         StackPane.setAlignment(boss_view, Pos.CENTER_RIGHT);
 
         buttonView = new StackPane();

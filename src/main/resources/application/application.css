@@ -62,7 +62,7 @@ Text {
 }
 
 .gamescreen {
-	-fx-background-image: url("images/background.jpg");
+	-fx-background-image: url("images/game_arena.png");
 	-fx-background-color: rgba(0,0,0,0.5);
 	-fx-background-position: center;
 	-fx-background-size: cover;

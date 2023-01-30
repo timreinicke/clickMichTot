@@ -41,7 +41,6 @@ public class GameApplication extends Application {
             manager = new PlaylistManager(settings);
             player = new MP3(this);
 
-            //GameScreenController game = new GameScreenController();
             PlaylistMenuController playlistMenu = new PlaylistMenuController(this, manager);
             LeaderboardController leaderboard = new LeaderboardController(this);
             LeaderboardEntryController leaderboardADD = new LeaderboardEntryController(this);
@@ -92,6 +91,7 @@ public class GameApplication extends Application {
                             mainScene.setRoot(defeat.getView());
                         }
                         case "VictoryScreen" -> {
+                            System.out.println("HIER");
                             VictoryScreenController victory = new VictoryScreenController(Integer.parseInt(optPane[1]));
                             mainScene.setRoot(victory.getView());
                         }

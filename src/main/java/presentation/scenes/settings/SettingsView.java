@@ -51,6 +51,7 @@ public class SettingsView extends BorderPane {
 
         settingsContainer.getChildren().addAll(inputContainer, audioInput);
         settingsContainer.setSpacing(10);
+        settingsContainer.getStyleClass().add("center");
 
         centerPane.getChildren().addAll(title, toMainMenu, settingsContainer);
         centerPane.setPadding(new Insets(25, 10, 10, 25));
