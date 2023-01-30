@@ -33,6 +33,7 @@ public class SongMenuView extends BorderPane {
     String coverDir = "src/main/resources/application/music/album_artworks/";
     ImageViewPane coverViewPane;
     StackPane gamePrev;
+    VBox group;
     public ImageView hero_view;
     public ImageView hero2_view;
     public ImageView coverView;
@@ -70,7 +71,7 @@ public class SongMenuView extends BorderPane {
         gamePrev = new StackPane();
 
         coverView = new ImageView();
-        coverView.setPreserveRatio(true);
+
 
         hero_view = new ImageView();
         hero2_view = new ImageView();
@@ -80,9 +81,8 @@ public class SongMenuView extends BorderPane {
         femHero.getChildren().add(hero2_view);
         maleHero = new VBox();
         maleHero.getChildren().add(hero_view);
+        gamePrev.getChildren().addAll(coverView, femHero, maleHero);
 
-        coverView.fitHeightProperty().bind(gamePrev.heightProperty());
-        coverView.fitWidthProperty().bind(gamePrev.heightProperty());
 
         songInformation = new VBox();
         songName = new Label();
@@ -104,8 +104,6 @@ public class SongMenuView extends BorderPane {
         settings.setSpacing(20);
         settings.setPadding(new Insets(20));
         settings.getChildren().addAll(backButton, viewName, settingsButton);
-        gamePrev.getChildren().addAll(coverView, femHero, maleHero);
-        //coverPreview.getChildren().addAll(hero_view, hero2_view);
         songInformation.getChildren().addAll(songName, artist, duration);
         songPreview.getChildren().addAll(gamePrev, songInformation);
         difficultyControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard);
