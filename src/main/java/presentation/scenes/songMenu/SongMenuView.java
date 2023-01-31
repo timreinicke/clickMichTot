@@ -29,14 +29,11 @@ public class SongMenuView extends BorderPane {
     Button backButton;
     Button settingsButton;
     Label viewName;
-
     String coverDir = "src/main/resources/application/music/album_artworks/";
     ImageViewPane coverViewPane;
     StackPane gamePrev;
     public ImageView hero_view;
     public ImageView hero2_view;
-    public ImageView coverView;
-
     public VBox femHero;
     public VBox maleHero;
 
@@ -51,6 +48,11 @@ public class SongMenuView extends BorderPane {
 
     public SongMenuView() throws FileNotFoundException {
 
+        Region fillerRegion1 = new Region();
+        Region fillerRegion2 = new Region();
+        HBox.setHgrow(fillerRegion1, Priority.ALWAYS);
+        HBox.setHgrow(fillerRegion2, Priority.ALWAYS);
+        coverPreview = new Pane();
         settings = new HBox();
 
         difficultyControls = new HBox();
@@ -69,9 +71,6 @@ public class SongMenuView extends BorderPane {
 
         gamePrev = new StackPane();
 
-        coverView = new ImageView();
-        coverView.setPreserveRatio(true);
-
         hero_view = new ImageView();
         hero2_view = new ImageView();
         hero_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_male.png")));
@@ -80,9 +79,6 @@ public class SongMenuView extends BorderPane {
         femHero.getChildren().add(hero2_view);
         maleHero = new VBox();
         maleHero.getChildren().add(hero_view);
-
-        coverView.fitHeightProperty().bind(gamePrev.heightProperty());
-        coverView.fitWidthProperty().bind(gamePrev.heightProperty());
 
         songInformation = new VBox();
         songName = new Label();
@@ -103,13 +99,16 @@ public class SongMenuView extends BorderPane {
 
         settings.setSpacing(20);
         settings.setPadding(new Insets(20));
-        settings.getChildren().addAll(backButton, viewName, settingsButton);
-        gamePrev.getChildren().addAll(coverView, femHero, maleHero);
-        //coverPreview.getChildren().addAll(hero_view, hero2_view);
+
+        settings.getChildren().addAll(backButton, fillerRegion1, viewName, fillerRegion2, settingsButton);
+        coverPreview.getChildren().addAll(hero_view, hero2_view);
         songInformation.getChildren().addAll(songName, artist, duration);
         songPreview.getChildren().addAll(gamePrev, songInformation);
         difficultyControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard);
-        gameControls.getChildren().addAll(difficultyControls, startGame);
+        gameControls.getChildren().addAll(difficultyControls, fillerRegion1, startGame);
+
+        gameControls.setPadding(new Insets(20));
+        difficultyControls.setSpacing(20);
 
         this.setLeft(songSelection);
 

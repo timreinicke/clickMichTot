@@ -38,7 +38,7 @@ public class MP3 extends Thread {
         manager = application.getManager();
         songName = new SimpleStringProperty();
         aktSong = new SimpleObjectProperty<>();
-        volumeProperty = new SimpleFloatProperty(0);
+        volumeProperty = new SimpleFloatProperty(-20);
         aktSong.addListener(e -> SongMenuController.reload());
     }
     public void playSong() throws SongNotFoundException, IOException {

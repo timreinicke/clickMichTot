@@ -20,13 +20,17 @@ public class SettingsView extends BorderPane {
     Label audioInput;
 
     VBox centerPane;
+    HBox topPane;
 
     public SettingsView(){
-
+        topPane = new HBox();
         title = new Label("Einstellungen");
         title.getStyleClass().addAll("title");
 
-        toMainMenu = new Button("Main Menu");
+        toMainMenu = new Button("Back to Main Menu");
+        toMainMenu.getStyleClass().add("return-button");
+        topPane.setPadding(new Insets(20));
+
         centerPane = new VBox();
 
         settingsContainer = new VBox();
@@ -53,13 +57,14 @@ public class SettingsView extends BorderPane {
         settingsContainer.setSpacing(10);
         settingsContainer.getStyleClass().add("center");
 
-        centerPane.getChildren().addAll(title, toMainMenu, settingsContainer);
+        centerPane.getChildren().addAll(title, settingsContainer);
         centerPane.setPadding(new Insets(25, 10, 10, 25));
         centerPane.setSpacing(10);
 
+        topPane.getChildren().add(toMainMenu);
+
         this.getStyleClass().add("container");
         this.setCenter(centerPane);
-
-        toMainMenu.setAlignment(Pos.TOP_RIGHT);
+        this.setTop(topPane);
     }
 }

@@ -43,7 +43,6 @@ public class GameApplication extends Application {
 
             PlaylistMenuController playlistMenu = new PlaylistMenuController(this, manager);
             LeaderboardController leaderboard = new LeaderboardController(this);
-            LeaderboardEntryController leaderboardADD = new LeaderboardEntryController(this);
             MainMenuController mainMenu = new MainMenuController(this);
             SettingsController settings = new SettingsController(this, player, manager, this.settings);
 
@@ -51,7 +50,7 @@ public class GameApplication extends Application {
             scenes.put("GameScreen", emptyPane);
             scenes.put("PlaylistScreen", playlistMenu.getView());
             scenes.put("Leaderboard", leaderboard.getView());
-            scenes.put("LeaderboardADD", leaderboardADD.getView());
+            scenes.put("leaderBoardEntry", emptyPane);
             scenes.put("MainMenu", mainMenu.getView());
             scenes.put("Settings", settings.getView());
             scenes.put("DefeatScreen", emptyPane);
@@ -79,11 +78,11 @@ public class GameApplication extends Application {
                 } else {
                     switch (optPane[0]) {
                         case "SongList" -> {
-                            SongMenuController songlistMenu = new SongMenuController(this, manager, player);
+                            SongMenuController songlistMenu = new SongMenuController(this, manager, player, settings);
                             mainScene.setRoot(songlistMenu.getView());
                         }
                         case "GameScreen" -> {
-                            GameScreenController game = new GameScreenController(optPane[1], player, this);
+                            GameScreenController game = new GameScreenController(optPane[1], player, this, settings);
                             mainScene.setRoot(game.getView());
                         }
                         case "DefeatScreen" -> {
@@ -91,9 +90,14 @@ public class GameApplication extends Application {
                             mainScene.setRoot(defeat.getView());
                         }
                         case "VictoryScreen" -> {
-                            System.out.println("HIER");
-                            VictoryScreenController victory = new VictoryScreenController(Integer.parseInt(optPane[1]));
+                            VictoryScreenController victory = new VictoryScreenController(Integer.parseInt(optPane[1]), this);
                             mainScene.setRoot(victory.getView());
+                        }
+
+                        case "leaderBoardEntry" -> {
+                            System.out.println("HALLO");
+                            LeaderboardEntryController leaderboardADD = new LeaderboardEntryController(this, Integer.parseInt(optPane[1]));
+                            mainScene.setRoot(leaderboardADD.getView());
                         }
                     }
                 }

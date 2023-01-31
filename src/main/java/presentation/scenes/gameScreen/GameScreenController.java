@@ -1,6 +1,7 @@
 package presentation.scenes.gameScreen;
 
 import application.GameApplication;
+import business.Einstellungen;
 import business.MP3;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
@@ -17,6 +18,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
@@ -49,10 +51,12 @@ public class GameScreenController extends Thread {
     int sensitivity;
     private boolean isPaused = false;
     private final IntegerProperty highScore = new SimpleIntegerProperty(0);
+    Einstellungen settings;
 
     VolumeSliderController volume;
 
-    public GameScreenController(String filename, MP3 player, GameApplication application) throws FileNotFoundException {
+    public GameScreenController(String filename, MP3 player, GameApplication application, Einstellungen settings) throws FileNotFoundException {
+        this.settings = settings;
         this.view = new GameScreenView();
         this.hero_view = view.hero_view;
         this.filename = filename;
@@ -63,19 +67,13 @@ public class GameScreenController extends Thread {
 
         view.groupSettings.getChildren().add(volume.getView());
 
-        int f = 1;
-        switch (f) {
-            case 0:
-                sensitivity = 1000;
-                break;
-            case 1:
-                sensitivity = 800;
-                break;
-            case 2:
-                sensitivity = 500;
-                break;
+        switch (settings.getDifficulty()) {
+            case 1 -> sensitivity = 800;
+            case 2 -> sensitivity = 500;
+            default -> sensitivity = 1000;
         }
 
+        view.hero_view.setImage(new Image(new FileInputStream(settings.getHeroDir())));
 
         buttonSpawn().start();
         intialize();
@@ -157,8 +155,8 @@ public class GameScreenController extends Thread {
                         y = y + (int) (Math.random() * 25);
                     } else {
                         i++;
-                        x = (int) (Math.random() * (view.getWidth() - 250) - (view.getWidth() / 2 - 150));
-                        y = (int) (Math.random() * (view.getHeight() - 250) - (view.getHeight() / 2 - 150));
+                        x = (int) (Math.random() * (view.getWidth() - 350) - (view.getWidth() / 2 - 150));
+                        y = (int) (Math.random() * (view.getHeight() - 350) - (view.getHeight() / 2 - 150));
                     }
 
                     String id = i + "." + j;
@@ -166,7 +164,7 @@ public class GameScreenController extends Thread {
                     Circle timerCircle = new Circle();
                     timerCircle.setRadius(60);
                     timerCircle.getStyleClass().add("timerCircle");
-                    timerCircle.setFill(Color.AQUA);
+                    timerCircle.setFill(Color.rgb(255, 103, 0));
                     buttonManager.put(id, tap);
 
                     tap.setTranslateX(x);

@@ -9,9 +9,11 @@ import java.util.Objects;
 public class LeaderboardEntryController {
     LeaderboardEntryView view;
     String leaderboardDir;
-
     GameApplication application;
-    public LeaderboardEntryController(GameApplication application){
+    int points;
+
+    public LeaderboardEntryController(GameApplication application, int points){
+        this.points = points;
         view = new LeaderboardEntryView();
         this.application = application;
         leaderboardDir = "src/main/resources/application/leaderboard/leaderboard.txt";
@@ -22,8 +24,8 @@ public class LeaderboardEntryController {
         view.submit.setOnAction(e -> {
             if((view.getPlayerName.getText() != null && !view.getPlayerName.getText().isEmpty())){
                 try {
-                    if(!checkNameAndScore(view.getPlayerName.getText(), 238338)){
-                        addEntry(view.getPlayerName.getText(), 238338);
+                    if(!checkNameAndScore(view.getPlayerName.getText(), points)){
+                        addEntry(view.getPlayerName.getText(), points);
                         view.getPlayerName.setText("Erfolgreich hinzugefügt!");
                         view.getPlayerName.setEditable(false);
                         view.submit.setDisable(true);

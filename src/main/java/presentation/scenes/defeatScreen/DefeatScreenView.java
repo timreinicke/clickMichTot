@@ -2,31 +2,33 @@ package presentation.scenes.defeatScreen;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
-public class DefeatScreenView extends Pane {
-    Text headline;
-    Text highScore;
+public class DefeatScreenView extends BorderPane {
+    Label headline;
+    Label highScore;
     Button mainMenu;
     VBox contentContainer;
 
     public DefeatScreenView() {
-        headline = new Text("Failure!");
-        this.getStyleClass().addAll("title", "center");
+        headline = new Label("Failure!");
+        this.getStyleClass().addAll("title");
 
-        highScore = new Text();
+        highScore = new Label();
+        this.getStyleClass().addAll("title");
 
         mainMenu = new Button("Main Menu");
         mainMenu.getStyleClass().add("menu-button");
 
         contentContainer = new VBox();
-        StackPane.setAlignment(contentContainer, Pos.CENTER);
+        BorderPane.setAlignment(contentContainer, Pos.CENTER);
         contentContainer.getChildren().addAll(headline, highScore, mainMenu);
+        contentContainer.getStyleClass().addAll("center");
+        contentContainer.setSpacing(20);
 
         this.getStyleClass().add("container");
-        this.getChildren().add(contentContainer);
+        this.setCenter(contentContainer);
     }
 }

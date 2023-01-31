@@ -10,12 +10,12 @@
 }
 
 .settings-field {
-    -fx-background-color: #29524A;
+    -fx-background-color: #182434;
     -fx-border-color: white;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
 
 .settings-button {
-    -fx-background-color: #29524A;
+    -fx-background-color: #ff6700;
 }

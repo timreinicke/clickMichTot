@@ -8,7 +8,7 @@ public class VolumeSlider extends HBox {
 
     final double MAXVALUE = 50;
     final double MINVALUE = -50;
-    final double STARTVALUE = 0;
+    final double STARTVALUE = -20;
     double currVolume;
     Slider volumeSlider;
     Button volumeButton;

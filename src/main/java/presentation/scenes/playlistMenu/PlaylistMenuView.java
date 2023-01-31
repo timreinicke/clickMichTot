@@ -19,7 +19,7 @@ public class PlaylistMenuView extends BorderPane {
         back.getStyleClass().add("return-button");
 
         topContainer.getChildren().add(back);
-        topContainer.setPadding(new Insets(10));
+        topContainer.setPadding(new Insets(20));
         this.setTop(topContainer);
         back.setAlignment(Pos.TOP_LEFT);
         this.setCenter(list);
