@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import listener.SonglistenerInterface;
 import presentation.uicomponents.ImageViewPane;
 import presentation.uicomponents.songlistShow.SonglistController;
 
@@ -21,8 +20,6 @@ public class SongMenuController {
         GameApplication application;
         PlaylistManager manager;
         static MP3 player;
-
-        SonglistenerInterface songchange;
         SonglistController songContent;
 
         ImageViewPane coverViewPane;

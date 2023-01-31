@@ -29,11 +29,7 @@ public class SongMenuView extends BorderPane {
     Button backButton;
     Button settingsButton;
     Label viewName;
-
-    String coverDir = "src/main/resources/application/music/album_artworks/";
-    ImageViewPane coverViewPane;
-    StackPane gamePrev;
-    VBox group;
+    HBox gamePrev;
     public ImageView hero_view;
     public ImageView hero2_view;
     public ImageView coverView;
@@ -68,20 +64,27 @@ public class SongMenuView extends BorderPane {
 
         songSelection = new HBox();
 
-        gamePrev = new StackPane();
+        gamePrev = new HBox();
 
         coverView = new ImageView();
 
 
         hero_view = new ImageView();
         hero2_view = new ImageView();
+
         hero_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_male.png")));
         hero2_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_female.png")));
+
         femHero = new VBox();
         femHero.getChildren().add(hero2_view);
         maleHero = new VBox();
         maleHero.getChildren().add(hero_view);
-        gamePrev.getChildren().addAll(coverView, femHero, maleHero);
+
+        gamePrev.getChildren().addAll(femHero, maleHero);
+        gamePrev.getStyleClass().add("gameBackground");
+
+        femHero.setAlignment(Pos.BASELINE_RIGHT);
+        maleHero.setAlignment(Pos.BASELINE_LEFT);
 
 
         songInformation = new VBox();
