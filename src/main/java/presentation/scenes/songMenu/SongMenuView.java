@@ -77,10 +77,12 @@ public class SongMenuView extends BorderPane {
 
         femHero = new VBox();
         femHero.getChildren().add(hero2_view);
+        femHero.setMaxHeight(300);
         hero2_view.getStyleClass().add("character");
 
         maleHero = new VBox();
         maleHero.getChildren().add(hero_view);
+        maleHero.setMaxHeight(300);
         hero_view.getStyleClass().add("character");
 
         heroName = new Label("Pick your Hero!");
@@ -127,7 +129,8 @@ public class SongMenuView extends BorderPane {
 
         songPreview.getChildren().addAll(gamePrev, heroName, songInformation);
         songPreview.setPadding(new Insets(20,300,20,20));
-        songPreview.setAlignment(Pos.CENTER);
+        songPreview.setAlignment(Pos.TOP_CENTER);
+        songPreview.setSpacing(20);
 
         difficultyControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard);
         gameControls.getChildren().addAll(difficultyControls, fillerRegion1, startGame);

@@ -14,10 +14,10 @@ public class DefeatScreenView extends BorderPane {
 
     public DefeatScreenView() {
         headline = new Label("Failure!");
-        this.getStyleClass().addAll("title");
+        headline.getStyleClass().addAll("title");
 
         highScore = new Label();
-        this.getStyleClass().addAll("title");
+        highScore.getStyleClass().addAll("title");
 
         mainMenu = new Button("Main Menu");
         mainMenu.getStyleClass().add("menu-button");
