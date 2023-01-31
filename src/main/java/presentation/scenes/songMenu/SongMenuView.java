@@ -29,8 +29,6 @@ public class SongMenuView extends BorderPane {
     Button backButton;
     Button settingsButton;
     Label viewName;
-    String coverDir = "src/main/resources/application/music/album_artworks/";
-    ImageViewPane coverViewPane;
     HBox gamePrev;
     public ImageView hero_view;
     public ImageView hero2_view;
@@ -52,7 +50,6 @@ public class SongMenuView extends BorderPane {
         Region fillerRegion2 = new Region();
         HBox.setHgrow(fillerRegion1, Priority.ALWAYS);
         HBox.setHgrow(fillerRegion2, Priority.ALWAYS);
-        coverPreview = new Pane();
         settings = new HBox();
 
         difficultyControls = new HBox();
@@ -70,8 +67,6 @@ public class SongMenuView extends BorderPane {
         songSelection = new HBox();
 
         gamePrev = new HBox();
-
-        ImageView coverView = new ImageView();
 
         hero_view = new ImageView();
         hero2_view = new ImageView();
@@ -116,7 +111,6 @@ public class SongMenuView extends BorderPane {
         settings.setPadding(new Insets(20));
 
         settings.getChildren().addAll(backButton, fillerRegion1, viewName, fillerRegion2, settingsButton);
-        coverPreview.getChildren().addAll(hero_view, hero2_view);
 
         backButton.setAlignment(Pos.CENTER_RIGHT);
         settingsButton.setAlignment(Pos.CENTER_LEFT);
