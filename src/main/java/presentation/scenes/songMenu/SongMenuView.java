@@ -21,7 +21,7 @@ public class SongMenuView extends BorderPane {
     Pane coverPreview;
     VBox songInformation;
 
-    HBox songPreview;
+    VBox songPreview;
     HBox gameControls;
     HBox difficultyControls;
 
@@ -83,6 +83,11 @@ public class SongMenuView extends BorderPane {
         gamePrev.getChildren().addAll(femHero, maleHero);
         gamePrev.getStyleClass().add("gameBackground");
 
+        gamePrev.setPrefWidth(600);
+        gamePrev.setPrefHeight(600);
+
+
+        gamePrev.setAlignment(Pos.CENTER);
         femHero.setAlignment(Pos.BASELINE_RIGHT);
         maleHero.setAlignment(Pos.BASELINE_LEFT);
 
@@ -92,7 +97,7 @@ public class SongMenuView extends BorderPane {
         artist = new Label();
         duration = new Label();
 
-        songPreview = new HBox();
+        songPreview = new VBox();
 
         gameControls = new HBox();
         difficulty_easy = new Button("EASY");
@@ -106,15 +111,29 @@ public class SongMenuView extends BorderPane {
 
         settings.setSpacing(20);
         settings.setPadding(new Insets(20));
+
         settings.getChildren().addAll(backButton, viewName, settingsButton);
+        //settings.setAlignment(Pos.CENTER);
+        backButton.setAlignment(Pos.CENTER_RIGHT);
+        settingsButton.setAlignment(Pos.CENTER_LEFT);
+
         songInformation.getChildren().addAll(songName, artist, duration);
+        songInformation.setPadding(new Insets(20));
+
         songPreview.getChildren().addAll(gamePrev, songInformation);
+        songPreview.setPadding(new Insets(20,300,20,20));
+
         difficultyControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard);
+        difficultyControls.setPadding(new Insets(20));
+
         gameControls.getChildren().addAll(difficultyControls, startGame);
+        gameControls.setPadding(new Insets(20));
 
         this.setLeft(songSelection);
 
         this.setTop(settings);
+
+
 
         backButton.setAlignment(Pos.CENTER_LEFT);
         viewName.setAlignment(Pos.CENTER);

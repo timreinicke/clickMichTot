@@ -265,5 +265,7 @@ Button, Button:hover {
 }
 
 .gameBackground {
-    -fx-background-image: url("src/main/resources/application/images/game_arena.png");
+    -fx-background-image: url("images/game_arena.png");
+    -fx-background-position: center;
+    -fx-background-size: cover;
 }
