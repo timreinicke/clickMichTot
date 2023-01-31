@@ -51,7 +51,6 @@ public class PlaylistShowController{
         );*/
 
         allPlaylistView.setOnMouseClicked(e -> {
-            System.out.println(allPlaylistView.getSelectionModel().getSelectedItems());
 
             try {
                 manager.setPlaylist(allPlaylistView.getSelectionModel().getSelectedItem());

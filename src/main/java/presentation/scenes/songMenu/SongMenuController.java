@@ -6,6 +6,7 @@ import business.MP3;
 import business.PlaylistManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import presentation.uicomponents.ImageViewPane;
 import presentation.uicomponents.songlistShow.SonglistController;
 
@@ -32,6 +33,9 @@ public class SongMenuController {
         Einstellungen settings;
         protected Button settingsButton;
         protected String coverDir = "src/main/resources/application/music/album_artworks/";
+        protected VBox heroview;
+        protected VBox heroview2;
+
 
         public SongMenuController(GameApplication application, PlaylistManager manager, MP3 player, Einstellungen settings) throws FileNotFoundException {
 
@@ -40,6 +44,9 @@ public class SongMenuController {
             this.player = player;
             this.settings = settings;
             this.view = new SongMenuView();
+
+            heroview = view.femHero;
+            heroview2 = view.maleHero;
 
             songName = view.songName;
             artist = view.artist;
@@ -62,16 +69,35 @@ public class SongMenuController {
         }
 
         public void initialize(){
+            heroview.setOnMouseClicked(e -> {
+                settings.setHeroDir("src/main/resources/application/images/hero_female.png");
+                view.heroName.setText("You Picked Sophia!");
+            });
+
+            heroview2.setOnMouseClicked(e -> {
+                settings.setHeroDir("src/main/resources/application/images/hero_male.png");
+                view.heroName.setText("You Picked Tim!");
+            });
+
             difficulty_easy.setOnAction(e -> {
                 settings.setDifficulty(0);
+                difficulty_easy.getStyleClass().add("active");
+                difficulty_medium.getStyleClass().remove("active");
+                difficulty_hard.getStyleClass().remove("active");
             });
 
             difficulty_medium.setOnAction(e -> {
                 settings.setDifficulty(1);
+                difficulty_easy.getStyleClass().remove("active");
+                difficulty_medium.getStyleClass().add("active");
+                difficulty_hard.getStyleClass().remove("active");
             });
 
             difficulty_hard.setOnAction(e -> {
                 settings.setDifficulty(2);
+                difficulty_easy.getStyleClass().remove("active");
+                difficulty_medium.getStyleClass().remove("active");
+                difficulty_hard.getStyleClass().add("active");
             });
 
             backButton.setOnAction(e -> {

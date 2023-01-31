@@ -131,7 +131,7 @@ public class GameScreenController extends Thread {
                         throw new RuntimeException(e);
                     }
                 }
-            }, 2500);
+            }, 1500);
 
             Timer removeButtons = new Timer();
             removeButtons.schedule(new TimerTask() {
@@ -164,7 +164,7 @@ public class GameScreenController extends Thread {
                     Circle timerCircle = new Circle();
                     timerCircle.setRadius(60);
                     timerCircle.getStyleClass().add("timerCircle");
-                    timerCircle.setFill(Color.rgb(255, 103, 0));
+                    timerCircle.setFill(Color.rgb(70, 182, 160));
                     buttonManager.put(id, tap);
 
                     tap.setTranslateX(x);
@@ -208,7 +208,7 @@ public class GameScreenController extends Thread {
                                 timerCircle.getStyleClass().add("inactive");
                             });
                         }
-                    }, 3000);
+                    }, 2000);
 
                     tap.setId(id);
                     tap.setOnAction(e -> {
@@ -228,7 +228,7 @@ public class GameScreenController extends Thread {
     }
 
     public void circleTimerTransition(Circle circle) {
-        ScaleTransition sc = new ScaleTransition(Duration.millis(2500), circle);
+        ScaleTransition sc = new ScaleTransition(Duration.millis(1500), circle);
         sc.setToX(0.66);
         sc.setToY(0.66);
         sc.play();
@@ -238,9 +238,9 @@ public class GameScreenController extends Thread {
         TranslateTransition translate = new TranslateTransition();
 
         translate.setNode(image);
-        translate.setDuration(Duration.millis(200)); //@todo set duration to spawntime of buttons
+        translate.setDuration(Duration.millis(100)); //@todo set duration to spawntime of buttons
         translate.setCycleCount(2);
-        translate.setByX(1200);
+        translate.setByX(700);
         translate.setAutoReverse(true);
         translate.play();
 
@@ -278,7 +278,7 @@ public class GameScreenController extends Thread {
                         player.playAtTime();
                         player.volume(player.getVolumeProperty());
                     }
-                }, 2500);
+                }, 1500);
 
                 asyncPlayer.play(player.currTimeProperty().get());
                 isPaused = false;

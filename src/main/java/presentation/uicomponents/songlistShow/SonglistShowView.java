@@ -16,6 +16,7 @@ public class SonglistShowView extends BorderPane {
     VBox songContainer;
     public SonglistShowView(){
         headerLabel = new Label("All Songs, so much to choose from!");
+        headerLabel.getStyleClass().add("list-cell_label");
         this.setTop(headerLabel);
         songContainer = new VBox();
 

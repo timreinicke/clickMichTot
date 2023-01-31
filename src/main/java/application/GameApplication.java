@@ -95,7 +95,6 @@ public class GameApplication extends Application {
                         }
 
                         case "leaderBoardEntry" -> {
-                            System.out.println("HALLO");
                             LeaderboardEntryController leaderboardADD = new LeaderboardEntryController(this, Integer.parseInt(optPane[1]));
                             mainScene.setRoot(leaderboardADD.getView());
                         }

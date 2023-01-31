@@ -2,15 +2,13 @@ package presentation.scenes.songMenu;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import java.io.FileInputStream;
 import javafx.scene.layout.*;
 import presentation.uicomponents.ImageViewPane;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
@@ -29,11 +27,13 @@ public class SongMenuView extends BorderPane {
     Button backButton;
     Button settingsButton;
     Label viewName;
+    Label heroName;
     HBox gamePrev;
     public ImageView hero_view;
     public ImageView hero2_view;
     public VBox femHero;
     public VBox maleHero;
+    public ImageView coverView;
 
     Label songName;
     Label artist;
@@ -50,6 +50,8 @@ public class SongMenuView extends BorderPane {
         Region fillerRegion2 = new Region();
         HBox.setHgrow(fillerRegion1, Priority.ALWAYS);
         HBox.setHgrow(fillerRegion2, Priority.ALWAYS);
+
+        coverPreview = new Pane();
         settings = new HBox();
 
         difficultyControls = new HBox();
@@ -59,7 +61,6 @@ public class SongMenuView extends BorderPane {
         settingsButton = new Button("SETTINGS");
         settingsButton.getStyleClass().add("return-button");
         settingsButton.setAlignment(Pos.CENTER_RIGHT);
-
 
         viewName = new Label("Song Selection");
         viewName.getStyleClass().addAll("title", "container");
@@ -71,13 +72,19 @@ public class SongMenuView extends BorderPane {
         hero_view = new ImageView();
         hero2_view = new ImageView();
 
-        hero_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_male.png")));
-        hero2_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_female.png")));
+        hero_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_view_highres.png")));
+        hero2_view.setImage(new Image(new FileInputStream("src/main/resources/application/images/hero_view_highres2.png")));
 
         femHero = new VBox();
         femHero.getChildren().add(hero2_view);
+        hero2_view.getStyleClass().add("character");
+
         maleHero = new VBox();
         maleHero.getChildren().add(hero_view);
+        hero_view.getStyleClass().add("character");
+
+        heroName = new Label("Pick your Hero!");
+        heroName.getStyleClass().add("list-cell_label");
 
         gamePrev.getChildren().addAll(femHero, maleHero);
         gamePrev.getStyleClass().add("gameBackground");
@@ -85,15 +92,15 @@ public class SongMenuView extends BorderPane {
         gamePrev.setPrefWidth(600);
         gamePrev.setPrefHeight(600);
 
-
         gamePrev.setAlignment(Pos.CENTER);
-        femHero.setAlignment(Pos.BASELINE_RIGHT);
-        maleHero.setAlignment(Pos.BASELINE_LEFT);
 
         songInformation = new VBox();
         songName = new Label();
+        songName.getStyleClass().add("list-cell_label");
         artist = new Label();
+        artist.getStyleClass().add("list-cell_label");
         duration = new Label();
+        duration.getStyleClass().add("list-cell_label");
 
         songPreview = new VBox();
 
@@ -118,8 +125,9 @@ public class SongMenuView extends BorderPane {
         songInformation.getChildren().addAll(songName, artist, duration);
         songInformation.setPadding(new Insets(20));
 
-        songPreview.getChildren().addAll(gamePrev, songInformation);
+        songPreview.getChildren().addAll(gamePrev, heroName, songInformation);
         songPreview.setPadding(new Insets(20,300,20,20));
+        songPreview.setAlignment(Pos.CENTER);
 
         difficultyControls.getChildren().addAll(difficulty_easy, difficulty_medium, difficulty_hard);
         gameControls.getChildren().addAll(difficultyControls, fillerRegion1, startGame);
@@ -132,8 +140,6 @@ public class SongMenuView extends BorderPane {
         this.setLeft(songSelection);
 
         this.setTop(settings);
-
-
 
         backButton.setAlignment(Pos.CENTER_LEFT);
         viewName.setAlignment(Pos.CENTER);
