@@ -278,3 +278,9 @@ Button, Button:hover {
 .musicBar {
 	-fx-content-display: block;
 }
+
+.gameBackground {
+    -fx-background-image: url("images/game_arena.png");
+    -fx-background-position: center;
+    -fx-background-size: cover;
+}

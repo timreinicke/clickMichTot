@@ -6,7 +6,6 @@ import business.MP3;
 import business.PlaylistManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import listener.SonglistenerInterface;
 import presentation.uicomponents.ImageViewPane;
 import presentation.uicomponents.songlistShow.SonglistController;
 
@@ -17,8 +16,6 @@ public class SongMenuController {
         GameApplication application;
         PlaylistManager manager;
         static MP3 player;
-
-        SonglistenerInterface songchange;
         SonglistController songContent;
 
         ImageViewPane coverViewPane;
