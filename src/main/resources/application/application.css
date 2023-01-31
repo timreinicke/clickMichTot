@@ -133,7 +133,7 @@
 	-fx-min-height: 32;
 	-fx-background-size: 28 28;
 	-fx-background-position:center;
-	-fx-border-color: #3f3f40;
+	-fx-border-color: white;
 	-fx-border-radius: 10px;
 }
 
@@ -166,7 +166,7 @@
 	-fx-min-height: 32;
 	-fx-background-size: 28 28;
 	-fx-background-position:center;
-	-fx-border-color: #3f3f40;
+	-fx-border-color: white;
 	-fx-border-radius: 10px;
 	-fx-start-margin: 10px;
 }

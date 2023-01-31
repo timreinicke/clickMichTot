@@ -48,6 +48,7 @@ public class LeaderboardView extends BorderPane {
 
         leaderboardWindow.getChildren().addAll(leaderBoardLabel, leaders);
         leaders.setPrefWidth(1200);
+        leaderboardWindow.setPadding(new Insets(20));
         controls.setPadding(new Insets(20));
         controls.getChildren().addAll(backButton, fillerRegion1, viewName, fillerRegion2, settingsButton);
 

@@ -155,8 +155,8 @@ public class GameScreenController extends Thread {
                         y = y + (int) (Math.random() * 25);
                     } else {
                         i++;
-                        x = (int) (Math.random() * (view.getWidth() - 350) - (view.getWidth() / 2 - 150));
-                        y = (int) (Math.random() * (view.getHeight() - 350) - (view.getHeight() / 2 - 150));
+                        x = (int) (Math.random() * (view.getWidth() - 400) - (view.getWidth() / 2 - 150));
+                        y = (int) (Math.random() * (view.getHeight() - 400) - (view.getHeight() / 2 - 150));
                     }
 
                     String id = i + "." + j;
