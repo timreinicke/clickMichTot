@@ -259,7 +259,6 @@ public class GameScreenController extends Thread {
                 }
                 
                 view.getChildren().addAll(view.parentSettings);
-                System.out.println("PAUSE");
                 try {
                     player.pause();
                 } catch (InterruptedException ex) {
@@ -270,7 +269,6 @@ public class GameScreenController extends Thread {
                 isPaused = true;
             } else {
                 view.getChildren().removeAll(view.parentSettings);
-                System.out.println("Weiter");
                 Timer startPlayer = new Timer();
                 startPlayer.schedule(new TimerTask() {
                     @Override
