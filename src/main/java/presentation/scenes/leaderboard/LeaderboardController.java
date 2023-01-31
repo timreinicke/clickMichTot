@@ -71,8 +71,8 @@ public class LeaderboardController {
                 String[] parts1 = o1.split(" ");
                 String[] parts2 = o2.split(" ");
 
-                int points1 = Integer.parseInt(parts1[parts1.length - 2]);
-                int points2 = Integer.parseInt(parts2[parts2.length - 2]);
+                int points1 = Integer.parseInt(parts1[1]);
+                int points2 = Integer.parseInt(parts2[1]);
 
                 return Integer.compare(points2, points1);
             }

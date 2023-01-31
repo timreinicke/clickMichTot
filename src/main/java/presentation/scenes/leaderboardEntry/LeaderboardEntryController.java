@@ -26,7 +26,7 @@ public class LeaderboardEntryController {
                 try {
                     if(!checkNameAndScore(view.getPlayerName.getText(), points)){
                         addEntry(view.getPlayerName.getText(), points);
-                        view.getPlayerName.setText("Erfolgreich hinzugefügt!");
+                        view.getPlayerName.setText("Added to the Leaderboard successfully!");
                         view.getPlayerName.setEditable(false);
                         view.submit.setDisable(true);
                         application.reloadLeaderboard();
@@ -56,7 +56,11 @@ public class LeaderboardEntryController {
             while((line = br.readLine()) != null){
                 //skips through all lines that full of text
             }
-            writer.print("\n" + name + " " + points + " Punkte");
+            if(application.getAktSong().getTitle() != null){
+                writer.print("\n" + name + " " + points + " Punkte, Song: " + application.getAktSong().getTitle());
+            }else {
+                writer.print("\n" + name + " " + points + " Punkte, Song: illegal gedownloaded :(");
+            }
             writer.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);

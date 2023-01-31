@@ -3,6 +3,7 @@ package application;
 import business.Einstellungen;
 import business.MP3;
 import business.PlaylistManager;
+import business.Song;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -116,5 +117,9 @@ public class GameApplication extends Application {
     public void reloadLeaderboard(){
         LeaderboardController leaderboard = new LeaderboardController(this);
         scenes.put("Leaderboard", leaderboard.getView());
+    }
+
+    public Song getAktSong(){
+        return player.getAktSong();
     }
 }
