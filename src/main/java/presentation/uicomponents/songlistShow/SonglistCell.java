@@ -7,6 +7,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+/*
+ * creates cell for listview of our songs within the playlists
+ */
 public class SonglistCell extends ListCell<Song> {
     private Pane view;
     private Label songLabel;

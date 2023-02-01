@@ -20,6 +20,10 @@ public class LeaderboardView extends BorderPane {
 
     public LeaderboardView(){
 
+        /*
+         * view for leaderboard
+         */
+
         Region fillerRegion1 = new Region();
         Region fillerRegion2 = new Region();
         HBox.setHgrow(fillerRegion1, Priority.ALWAYS);

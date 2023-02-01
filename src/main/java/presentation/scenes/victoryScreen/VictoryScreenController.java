@@ -6,6 +6,10 @@ import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
 
+/*
+ * Victory screen after you win the game, switches to
+ * leaderboard entry later
+ */
 public class VictoryScreenController {
     VictoryScreenView view;
     Button leaderBoard;

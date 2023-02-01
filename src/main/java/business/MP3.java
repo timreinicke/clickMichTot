@@ -13,7 +13,7 @@ import presentation.scenes.songMenu.SongMenuController;
 import java.io.IOException;
 
 /*
- * Thread und Playerverwaltung, um Einstellungen auf Musik vorzunehmen (skip, play, pause..)
+ * Management for songs that are playing and thread management as well as functions needed
  */
 
 public class MP3 extends Thread {
@@ -22,8 +22,6 @@ public class MP3 extends Thread {
     private SimpleAudioPlayer audioPlayer;
     private final SimpleIntegerProperty currTime;
     private final SimpleStringProperty songName;
-    boolean shuffle = false;
-    boolean repeat = false;
     private final PlaylistManager manager;
     SimpleObjectProperty<Song> aktSong;
     private boolean isPaused;
@@ -57,7 +55,7 @@ public class MP3 extends Thread {
     }
 
     /*
-     * erstellt einen neuen Thread um den Timer eines Liedes zu merken
+     * created new Timer Thread to keep a second song
      */
 
     public Thread createTimerThread() {
@@ -88,7 +86,7 @@ public class MP3 extends Thread {
     }
 
     /*
-     * Laedt aktuellen Song und spielt ihn mit der letzten gemerkten Zeit ab und startet den Thread
+     * loads current song at a certain time
      */
 
     public void playAtTime() {

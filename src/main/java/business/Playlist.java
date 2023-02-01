@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /*
- * erstellt Playlisten, die dann in PlaylistManager verwaltet werden.
- * Implementiert Cloneable um eine ShufflePlaylist erstellen zu können
+ * creates Playlists that are managed by PlaylistManager
  */
 
 public class Playlist implements Cloneable {
@@ -44,7 +43,7 @@ public class Playlist implements Cloneable {
 	}
 
 	/*
-	 * Laed die Playlist indem ein BufferedReader ueber ein File iteriert und dann die Methode addTrack aufruft
+	 * Loads playlist
 	 */
 
 	public void loadPlaylist() throws IOException, InvalidDataException, UnsupportedTagException {
@@ -64,7 +63,7 @@ public class Playlist implements Cloneable {
 	}
 
 	/*
-	 * iteriert ueber Playlist Liste um einen uebergebenen Song zu suchen
+	 * iterates over playlist to search a song
 	 */
 
 	public boolean searchSong(Song aktSong){

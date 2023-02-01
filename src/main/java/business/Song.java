@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /*
- *	Speichert und laed Daten von MP3 Datein
+ *	saves and loads MP3 files
  */
 
 public class Song {

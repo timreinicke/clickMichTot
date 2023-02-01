@@ -8,6 +8,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+/*
+ * View for a single listview
+ */
 public class PlaylistShowView extends BorderPane {
 
     Label headerLabel;

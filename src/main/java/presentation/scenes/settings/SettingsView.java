@@ -9,6 +9,9 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import presentation.uicomponents.volume.VolumeSliderController;
 
+/*
+ * settings view
+ */
 
 public class SettingsView extends BorderPane {
     TextField dirField;

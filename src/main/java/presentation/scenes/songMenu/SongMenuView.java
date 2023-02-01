@@ -44,6 +44,10 @@ public class SongMenuView extends BorderPane {
     Button difficulty_hard;
     Button startGame;
 
+    /*
+     * View for Song menu
+     */
+
     public SongMenuView() throws FileNotFoundException {
 
         Region fillerRegion1 = new Region();

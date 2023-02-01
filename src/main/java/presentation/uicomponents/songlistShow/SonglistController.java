@@ -8,11 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/*
+ * ListView for all our songs within the playlist
+ */
 
 public class SonglistController {
     PlaylistManager manager;

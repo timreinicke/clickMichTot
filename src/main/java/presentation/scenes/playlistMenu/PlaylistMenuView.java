@@ -7,6 +7,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+/*
+ * View for playlist menu
+ */
 public class PlaylistMenuView extends BorderPane {
     HBox list;
     HBox topContainer;

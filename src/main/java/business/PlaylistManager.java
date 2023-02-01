@@ -13,7 +13,7 @@ import java.sql.Array;
 import java.util.*;
 
 /*
- * Manager fuer unsere Playlistobjekte. Verwaltet sie und setzt aktuelle Playlist und Shuffleplaylist
+ * Manager for our playlist objects
  */
 
 public class PlaylistManager {
@@ -27,7 +27,7 @@ public class PlaylistManager {
 	}
 
 	/*
-	 * laed alle Playlisten als File aus dem gegebenen Verzeichnis aus
+	 * loads playlist objects
 	 */
 
 	public void getPlaylists() throws IOException, InvalidDataException, UnsupportedTagException {
@@ -68,7 +68,7 @@ public class PlaylistManager {
 	}
 
 	/*
-	 * gibt aktuelle Playlist zurueck
+	 * get current playlist
 	 * @return aktPlaylist
 	 * @return shufflePlaylist
 	 */
@@ -78,7 +78,7 @@ public class PlaylistManager {
 	}
 
 	/*
-	 * setzt aktuelle Playlist
+	 * sets current playlist
 	 */
 
 	public void setPlaylist(Playlist p) throws PlaylistNotFoundException, IOException, InvalidDataException, UnsupportedTagException {

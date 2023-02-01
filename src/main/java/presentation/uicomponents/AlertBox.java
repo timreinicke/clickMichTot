@@ -9,7 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /*
- * Pop-Up Fenster um Fehlermeldungen für den Nutzer sichtbar zu machen
+ * Pop-Up window which makes errors visible to users
  */
 
 public class AlertBox {
@@ -17,7 +17,7 @@ public class AlertBox {
     public static void display(String title, String message){
 
         /*
-         * Setzt neue Stage mit einem Titel, Beschreibung der Eingabe und Eingabefeld
+         * Sets new stage for alert box and uses custom messages to display
          */
 
         Stage window = new Stage();

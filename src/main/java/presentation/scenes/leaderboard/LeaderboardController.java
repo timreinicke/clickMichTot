@@ -15,6 +15,10 @@ import java.util.stream.Stream;
 
 public class LeaderboardController {
 
+    /*
+     * Reads leaderboard.txt and sorts the listview
+     */
+
     GameApplication application;
     protected LeaderboardView view;
     protected Button backButton;

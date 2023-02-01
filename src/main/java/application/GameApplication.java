@@ -23,6 +23,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/*
+* @author Sophia Mueller and Tim Reinicke
+* Application manager in which all scenes are created
+* Function switch scene, which can take an optional pane in case it has to be initialized later on
+*/
 public class GameApplication extends Application {
     private Stage primaryStage;
     private Map<String, Pane> scenes;

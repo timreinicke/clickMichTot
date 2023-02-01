@@ -27,10 +27,8 @@ public class GameScreenView extends StackPane {
 
     public StackPane parentSettings;
     public VBox groupSettings;
-    public Rectangle gameSettings;
     public Button toMainMenu;
     public Button quitGame;
-    public VolumeSliderController volume;
     public GameScreenView() throws FileNotFoundException {
 
         parentSettings = new StackPane();

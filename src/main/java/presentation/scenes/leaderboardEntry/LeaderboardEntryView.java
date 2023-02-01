@@ -10,6 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
+/*
+ * View for the leaderboard entry
+ */
 public class LeaderboardEntryView extends BorderPane {
     Label viewName;
     TextField getPlayerName;

@@ -1,6 +1,6 @@
 package business;
 /*
-* Pfadverwaltung für die Businesslogik
+* Path management for our business logic
  */
 
 public class Einstellungen {

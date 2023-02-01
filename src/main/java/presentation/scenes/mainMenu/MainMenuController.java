@@ -15,6 +15,9 @@ public class MainMenuController {
     private final Button settings;
     private Button quit;
 
+    /*
+     * main menu to navigate through the game
+     */
     public MainMenuController(GameApplication application){
 
         this.application = application;

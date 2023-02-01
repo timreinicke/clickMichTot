@@ -12,6 +12,11 @@ public class LeaderboardEntryController {
     GameApplication application;
     int points;
 
+    /*
+     * Controller to enter your name after a victory
+     * it will save score and the song you played
+     */
+
     public LeaderboardEntryController(GameApplication application, int points){
         this.points = points;
         view = new LeaderboardEntryView();

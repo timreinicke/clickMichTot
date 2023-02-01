@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+/*
+ * Controller to fill the listview with our playlist cells
+ */
 
 public class PlaylistShowController{
     PlaylistManager manager;
@@ -46,9 +49,6 @@ public class PlaylistShowController{
 
         allPlaylists = manager.getPlaylistManager();
 
-        /*allPlaylistView.setCellFactory(
-                p -> new PlaylistCell()
-        );*/
 
         allPlaylistView.setOnMouseClicked(e -> {
 

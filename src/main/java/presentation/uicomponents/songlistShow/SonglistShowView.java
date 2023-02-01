@@ -9,6 +9,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+/*
+ * view for listview for the songs
+ */
 public class SonglistShowView extends BorderPane {
 
     Label headerLabel;

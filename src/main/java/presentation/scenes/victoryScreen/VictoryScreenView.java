@@ -11,6 +11,9 @@ import javafx.scene.text.Text;
 
 import javax.swing.border.Border;
 
+/*
+ * view for victory screen
+ */
 public class VictoryScreenView extends BorderPane {
     Label headline;
     Label highScore;
@@ -20,6 +23,9 @@ public class VictoryScreenView extends BorderPane {
     VBox container;
     HBox buttonContainer;
 
+    /*
+     * View for victory screen
+     */
 
     public VictoryScreenView() {
         container = new VBox();

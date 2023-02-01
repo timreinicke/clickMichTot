@@ -28,6 +28,10 @@ public class SettingsController {
     Einstellungen settings;
     VolumeSliderController volumeBar;
 
+    /*
+     * Settings for the game, here you can set your path for the playlists
+     * you can also adjust the volume before playing
+     */
     public SettingsController(GameApplication application, MP3 player, PlaylistManager manager, Einstellungen settings){
         view = new SettingsView();
         this.dirField = view.dirField;

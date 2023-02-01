@@ -38,6 +38,10 @@ import java.util.TimerTask;
 
 public class GameScreenController extends Thread {
 
+    /*
+     * Logic behind our Game
+     */
+
     private final GameScreenView view;
     private final ImageView hero_view;
     private final StackPane buttonView;
@@ -45,7 +49,6 @@ public class GameScreenController extends Thread {
     private final String filename;
     private int heroHealth = 10;
     AudioPlayer asyncPlayer;
-    Button pause;
     MP3 player;
     GameApplication application;
     int sensitivity;
@@ -66,6 +69,10 @@ public class GameScreenController extends Thread {
         volume = new VolumeSliderController(player);
 
         view.groupSettings.getChildren().add(volume.getView());
+
+        /*
+         *  The numbers are our difficulties, default is easy, 1 is medium and 2 is hard
+         */
 
         switch (settings.getDifficulty()) {
             case 1 -> sensitivity = 800;
@@ -96,6 +103,12 @@ public class GameScreenController extends Thread {
 
         ;
     }
+
+    /*
+     * Generates our buttons with a short delay
+     * It checks if the beat is in range, if it is it will spawn a button
+     * It also despawns our buttons
+     */
 
     public Thread buttonSpawn() {
         return new Thread(() -> {
@@ -227,12 +240,21 @@ public class GameScreenController extends Thread {
         });
     }
 
+    /*
+     * This generates a blue circle that comes closer to the actual button
+     * to represent the time you have to click
+     */
+
     public void circleTimerTransition(Circle circle) {
         ScaleTransition sc = new ScaleTransition(Duration.millis(1500), circle);
         sc.setToX(0.66);
         sc.setToY(0.66);
         sc.play();
     }
+
+    /*
+     * move transition for our chracters
+     */
 
     public void move(ImageView image) {
         TranslateTransition translate = new TranslateTransition();
@@ -249,6 +271,10 @@ public class GameScreenController extends Thread {
     public void addHighScore() {
         this.highScore.set(highScore.get() + 100);
     }
+
+    /*
+     * logic for our pause screen
+     */
 
     public void intialize() {
         view.setOnKeyPressed(e -> {

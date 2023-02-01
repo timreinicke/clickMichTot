@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 
 public class DefeatScreenController {
 
+    /*
+     * Defeat Scene in case you lose all your health
+     */
     DefeatScreenView view;
      Button mainMenu;
      GameApplication application;

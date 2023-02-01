@@ -7,6 +7,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class DefeatScreenView extends BorderPane {
+    /*
+     * View for the defeat Screen
+     */
     Label headline;
     Label highScore;
     Button mainMenu;

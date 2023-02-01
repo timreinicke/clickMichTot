@@ -6,6 +6,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+/*
+ * Creates Cells for playlist listview, which showcase
+ * all of our playlists
+ */
+
 public class PlaylistCell extends ListCell<Playlist> {
     private Pane view;
     private Label playlistLabel;

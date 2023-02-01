@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+/*
+ * Controller to navigate through all loaded playlists within the game
+ */
 public class PlaylistMenuController {
     private PlaylistMenuView view;
     GameApplication application;
